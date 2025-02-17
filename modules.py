@@ -224,9 +224,10 @@ class module(object):
 		for submodule_description in self.description:
 			submodule_name = "?????"
 			try:
+				_locals = locals()
 				submodule_name = submodule_description[0]
-				exec(("submodule_function = self.module." + submodule_description[1]))
-				exec(("submodule_dialog = self.module." + submodule_description[2]))
+				submodule_function = getattr(self.module, submodule_description[1])
+				submodule_dialog = getattr(self.module, submodule_description[2])
 				self.submodules.append(submodule(submodule_name, submodule_function, submodule_dialog))
 			except (AttributeError, IndexError):
 				self.error = True

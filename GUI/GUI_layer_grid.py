@@ -154,7 +154,7 @@ class layer_grid(wx.grid.Grid):
 		self.menu_col = 0
 		
 		# Call a method when a cell is changed.
-		self.Bind(wx.grid.EVT_GRID_CELL_CHANGE, self.on_cell_change)
+		self.Bind(wx.grid.EVT_GRID_CELL_CHANGED, self.on_cell_change)
 		
 		# Disable resizing of the grid.
 		self.DisableDragColSize()
@@ -297,34 +297,34 @@ class layer_grid(wx.grid.Grid):
 		
 		if refinable_thickness:
 			self.SetReadOnly(layer_nb, 4, False)
-			self.SetCellTextColour(layer_nb, 4, wx.NamedColour("BLACK"))
+			self.SetCellTextColour(layer_nb, 4, wx.Colour("BLACK"))
 		else:
 			self.SetReadOnly(layer_nb, 4)
-			self.SetCellTextColour(layer_nb, 4, wx.NamedColour("GRAY"))
+			self.SetCellTextColour(layer_nb, 4, wx.Colour("GRAY"))
 		if refinable_index:
 			self.SetReadOnly(layer_nb, 5, False)
-			self.SetCellTextColour(layer_nb, 5, wx.NamedColour("BLACK"))
+			self.SetCellTextColour(layer_nb, 5, wx.Colour("BLACK"))
 		else:
 			self.SetReadOnly(layer_nb, 5)
-			self.SetCellTextColour(layer_nb, 5, wx.NamedColour("GRAY"))
+			self.SetCellTextColour(layer_nb, 5, wx.Colour("GRAY"))
 		if refine_thickness or not refine_index:
 			self.SetReadOnly(layer_nb, 6)
-			self.SetCellTextColour(layer_nb, 6, wx.NamedColour("GRAY"))
+			self.SetCellTextColour(layer_nb, 6, wx.Colour("GRAY"))
 		else:
 			self.SetReadOnly(layer_nb, 6, False)
-			self.SetCellTextColour(layer_nb, 6, wx.NamedColour("BLACK"))
+			self.SetCellTextColour(layer_nb, 6, wx.Colour("BLACK"))
 		if refine_thickness:
 			self.SetReadOnly(layer_nb, 7, False)
-			self.SetCellTextColour(layer_nb, 7, wx.NamedColour("BLACK"))
+			self.SetCellTextColour(layer_nb, 7, wx.Colour("BLACK"))
 		else:
 			self.SetReadOnly(layer_nb, 7)
-			self.SetCellTextColour(layer_nb, 7, wx.NamedColour("GRAY"))
+			self.SetCellTextColour(layer_nb, 7, wx.Colour("GRAY"))
 		if refine_index:
 			self.SetReadOnly(layer_nb, 8, False)
-			self.SetCellTextColour(layer_nb, 8, wx.NamedColour("BLACK"))
+			self.SetCellTextColour(layer_nb, 8, wx.Colour("BLACK"))
 		else:
 			self.SetReadOnly(layer_nb, 8)
-			self.SetCellTextColour(layer_nb, 8, wx.NamedColour("GRAY"))
+			self.SetCellTextColour(layer_nb, 8, wx.Colour("GRAY"))
 	
 	
 	######################################################################

@@ -817,7 +817,7 @@ class illuminant_validator(wx.PyValidator):
 		# Try to get the illuminant to make sure that the file is correct.
 		try:
 			color.get_illuminant(window.GetStringSelection())
-		except color.color_error, error:
+		except (color.color_error, error):
 			wx.MessageBox("An error occured while reading illuminant file.\n\n%s" % error, "Illuminant error", wx.ICON_ERROR|wx.OK)
 			window.SetFocus()
 			window.Refresh()
@@ -939,7 +939,7 @@ class observer_validator(wx.PyValidator):
 		# Try to get the observer to make sure that the file is correct.
 		try:
 			color.get_observer(window.GetStringSelection())
-		except color.color_error, error:
+		except color.color_error as error:
 			wx.MessageBox("An error occured while reading observer file.\n\n%s" % error, "Observer error", wx.ICON_ERROR|wx.OK)
 			window.SetFocus()
 			window.Refresh()

@@ -302,7 +302,7 @@ class illuminants(object):
 		The method takes no arguments and return a list of all the
 		illuminants in alphabetic order."""
 		
-		illuminant_names = self.illuminants.keys()
+		illuminant_names = list(self.illuminants.keys())
 		illuminant_names.sort()
 		
 		return illuminant_names
@@ -386,7 +386,7 @@ class observers(object):
 		The method takes no arguments and return a list of all the obervers
 		in alphabetic order."""
 		
-		observer_names = self.observers.keys()
+		observer_names = list(self.observers.keys())
 		observer_names.sort()
 		
 		return observer_names
@@ -1772,7 +1772,7 @@ def read_observer(observer_name):
 	
 	try:
 		keywords, values = simple_parser.parse_file(observer_file)
-	except simple_parser.parsing_error, error:
+	except (simple_parser.parsing_error, error):
 		raise color_error(observer_name, "Cannot parse observer because %s" % error.get_value())
 	
 	observer_file.close()
@@ -1850,7 +1850,7 @@ def read_illuminant(illuminant_name):
 	
 	try:
 		keywords, values = simple_parser.parse_file(illuminant_file)
-	except simple_parser.parsing_error, error:
+	except (simple_parser.parsing_error, error):
 		raise color_error(illuminant_name, "Cannot parse illuminant because %s" % error.get_value())
 	
 	illuminant_file.close()

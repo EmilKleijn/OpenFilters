@@ -375,7 +375,7 @@ def parse_project(lines, material_catalog = None):
   
 	try:
 		keywords, values = simple_parser.parse(lines)
-	except simple_parser.parsing_error, error:
+	except simple_parser.parsing_error as error:
 		raise project_error("Cannot parse project because %s" % error.get_value())
 	
 	new_project = project(material_catalog)
@@ -411,7 +411,7 @@ def parse_project(lines, material_catalog = None):
 		elif keyword == "Filter":
 			try:
 				filter = optical_filter.parse_filter(value, file_version, material_catalog)
-			except (optical_filter.filter_error, materials.material_error), error:
+			except (optical_filter.filter_error, materials.material_error) as error:
 				if file_version > version.version(release.VERSION):
 					raise project_error("%s\n\nThe project file was created with a newer version of OpenFilters, which may explain this error" % error)
 				else:
@@ -421,7 +421,7 @@ def parse_project(lines, material_catalog = None):
 		elif keyword == "Target":
 			try:
 				target = targets.parse_target(value, file_version)
-			except targets.target_error, error:
+			except targets.target_error as error:
 				if file_version > version.version(release.VERSION):
 					raise project_error("%s\n\nThis error may be due to the fact that the project file was created with a newer version of OpenFilters" % error)
 				else:
@@ -511,7 +511,7 @@ def write_project(project, filename):
 	
 	try:
 		os.remove(filename)
-	except OSError, WindowsError:
+	except (OSError, WindowsError):
 		pass
 	
 	os.rename(temporary_file_name, filename)

@@ -236,7 +236,7 @@ class layer_dialog(wx.Dialog):
 		position_box_sizer_1.Add(self.front_button, 0, wx.ALIGN_LEFT|wx.ALIGN_CENTER_VERTICAL|wx.LEFT, 5)
 		position_box_sizer_1.Add(self.back_button, 0, wx.ALIGN_LEFT|wx.ALIGN_CENTER_VERTICAL|wx.LEFT, 5)
 		
-		position_box_sizer.Add(position_box_sizer_1, 0, wx.ALIGN_LEFT|wx.ALIGN_CENTER_VERTICAL)
+		position_box_sizer.Add(position_box_sizer_1, 0, wx.ALIGN_LEFT|wx.ALIGN_CENTER_HORIZONTAL)
 		
 		# Adding radio buttons and a text box for specifying the
 		# position.
@@ -259,13 +259,13 @@ class layer_dialog(wx.Dialog):
 			position_box_sizer_2.Add(self.other_position_button, 0, wx.ALIGN_LEFT|wx.ALIGN_CENTER_VERTICAL|wx.LEFT, 5)
 			position_box_sizer_2.Add(self.other_position_box, 0, wx.ALIGN_LEFT|wx.ALIGN_CENTER_VERTICAL)
 			
-			position_box_sizer.Add(position_box_sizer_2, 0, wx.ALIGN_LEFT|wx.ALIGN_CENTER_VERTICAL|wx.TOP, 5)
+			position_box_sizer.Add(position_box_sizer_2, 0, wx.ALIGN_LEFT|wx.ALIGN_CENTER_HORIZONTAL|wx.TOP, 5)
 		
 		# Arrange buttons in the static box.
 		position_static_box_sizer = wx.StaticBoxSizer(position_static_box, wx.VERTICAL)
 		position_static_box_sizer.Add(position_box_sizer, 0, wx.ALL, 5)
 		
-		self.main_sizer.Add(position_static_box_sizer, 0, wx.GROW|wx.ALIGN_CENTER_VERTICAL|wx.TOP|wx.LEFT|wx.RIGHT, 10)
+		self.main_sizer.Add(position_static_box_sizer, 0, wx.GROW|wx.TOP|wx.LEFT|wx.RIGHT, 10)
 		
 		nb_front_layers = self.filter.get_nb_layers(FRONT)
 		nb_back_layers = self.filter.get_nb_layers(BACK)
@@ -672,9 +672,9 @@ class simple_layer_dialog(layer_dialog):
 		
 		# Arrange in the static box.
 		layer_box_sizer = wx.StaticBoxSizer(layer_static_box, wx.VERTICAL)
-		layer_box_sizer.Add(layer_box_sizer_1, 0, wx.ALIGN_LEFT|wx.ALIGN_CENTER_VERTICAL|wx.ALL, 5)
+		layer_box_sizer.Add(layer_box_sizer_1, 0, wx.ALIGN_LEFT|wx.ALIGN_CENTER_HORIZONTAL|wx.ALL, 5)
 		
-		self.main_sizer.Add(layer_box_sizer, 0, wx.GROW|wx.ALIGN_CENTER_VERTICAL|wx.TOP|wx.LEFT|wx.RIGHT, 10)
+		self.main_sizer.Add(layer_box_sizer, 0, wx.GROW|wx.TOP|wx.LEFT|wx.RIGHT, 10)
 		
 		# The default values.
 		if self.description:
@@ -750,7 +750,7 @@ class simple_layer_dialog(layer_dialog):
 		try:
 			material_nb = self.filter.get_material_nb(material_name)
 			material = self.filter.get_material(material_nb)
-		except materials.material_error, error:
+		except materials.material_error as error:
 			wx.MessageBox("This material cannot be used.\n\n%s" % error, "Error", wx.ICON_ERROR|wx.OK)
 			
 			self.material_box.SetFocus()
@@ -1041,7 +1041,7 @@ class import_layer_dialog(layer_dialog):
 		
 		try:
 			self.filter.add_graded_layer(material_name, profile, thickness, position, side)
-		except graded.grading_error, error:
+		except graded.grading_error as error:
 			raise import_layer_error("Improper grading (%s)" % error.value)
 
 

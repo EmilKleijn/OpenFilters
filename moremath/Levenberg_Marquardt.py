@@ -91,7 +91,7 @@ class Levenberg_Marquardt(object):
 	  pp. 681-688.
 	
 	The algorithm used in this file is described in
-	  Jorge J. Moré, "The Levenberg-Marquardt algorithm, implementation
+	  Jorge J. More, "The Levenberg-Marquardt algorithm, implementation
 	  and theory", Numerical Analysis, edited by G. A. Watson, Lecture
 	  Notes in Mathematics, vol. 630, Springer-Verlag, 1977, pp. 105-116
 	and is inspired by MINPACK (http://www.netlib.org/minpack/)."""

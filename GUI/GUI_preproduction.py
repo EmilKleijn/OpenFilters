@@ -1030,7 +1030,7 @@ class random_errors_dialog(wx.Dialog):
 				self.result_notebook.GetCurrentPage().save_to_file(filename)
 			except KeyError:
 				wx.MessageBox("Invalid file extension.", "Error", wx.ICON_ERROR|wx.OK)
-			except IOError, error:
+			except IOError as error:
 				wx.MessageBox("Exportation failed.\n\n%s" % error, "Error", wx.ICON_ERROR|wx.OK)
 			
 			self.SetCursor(wx.StockCursor(wx.CURSOR_DEFAULT))

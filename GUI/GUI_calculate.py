@@ -262,7 +262,7 @@ class calculate_dialog(wx.Dialog):
 		
 		angle_sizer_1 = wx.BoxSizer(wx.HORIZONTAL)
 		angle_sizer_1.Add(self.angle_box, 0, wx.ALIGN_LEFT|wx.ALIGN_CENTER_VERTICAL)
-		angle_sizer_1.Add(wx.StaticText(self, -1, "degrees"), 0, wx.ALIGN_RIGHT|wx.ALIGN_CENTER_VERTICAL|wx.LEFT, 5)
+		angle_sizer_1.Add(wx.StaticText(self, -1, "degrees"), 0, wx.ALIGN_CENTER_VERTICAL|wx.LEFT, 5)
 		self.content_sizer.Add(wx.StaticText(self, -1, "Angle:"), 1, wx.ALIGN_RIGHT|wx.ALIGN_CENTER_VERTICAL)
 		self.content_sizer.Add(angle_sizer_1, 1, wx.ALIGN_LEFT|wx.ALIGN_CENTER_VERTICAL)
 		

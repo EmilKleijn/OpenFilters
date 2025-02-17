@@ -242,7 +242,7 @@ class target_dialog(wx.Dialog):
 		value_sizer.Add(self.value_box,
 		                0, wx.ALIGN_LEFT|wx.ALIGN_CENTER_VERTICAL|wx.LEFT, 5)
 		try:
-			value_sizer.Add(wx.StaticText(self, -1, "±"),
+			value_sizer.Add(wx.StaticText(self, -1, "?"),
 			                0, wx.ALIGN_LEFT|wx.ALIGN_CENTER_VERTICAL|wx.LEFT, 5)
 		except UnicodeDecodeError:
 			value_sizer.Add(wx.StaticText(self, -1, "+-"),
@@ -402,9 +402,9 @@ class target_dialog(wx.Dialog):
 		self.second_box = wx.TextCtrl(self, -1, "")
 		self.third_box = wx.TextCtrl(self, -1, "")
 		try:
-			self.first_pm = wx.StaticText(self, -1, "±")
-			self.second_pm = wx.StaticText(self, -1, "±")
-			self.third_pm = wx.StaticText(self, -1, "±")
+			self.first_pm = wx.StaticText(self, -1, "ï¿½")
+			self.second_pm = wx.StaticText(self, -1, "ï¿½")
+			self.third_pm = wx.StaticText(self, -1, "ï¿½")
 		except UnicodeDecodeError:
 			self.first_pm = wx.StaticText(self, -1, "+-")
 			self.second_pm = wx.StaticText(self, -1, "+-")

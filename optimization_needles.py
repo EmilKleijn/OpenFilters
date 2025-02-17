@@ -323,7 +323,7 @@ class optimization_needles(optimization_refinement):
 		# are considered per layer because it takes 3 points to detect a
 		# minimum.
 		self.nb_needles_per_layer = [0]*self.nb_parameters
- 		for i_parameter in range(self.nb_parameters):
+		for i_parameter in range(self.nb_parameters):
 			parameter_kind, layer_nb = self.parameters[i_parameter]
 			if parameter_kind == THICKNESS and self.add_needles_in_layer[layer_nb] and self.front_thickness[layer_nb]:
 				self.nb_needles_per_layer[i_parameter] = max(int(math.ceil(self.front_thickness[layer_nb]/self.needle_spacing)) + 1, 3)
@@ -365,7 +365,7 @@ class optimization_needles(optimization_refinement):
 			# Give other threads a chance...
 			time.sleep(0)
 			
- 			for i_parameter in range(self.nb_parameters):
+			for i_parameter in range(self.nb_parameters):
 				
 				if self.nb_needles_per_layer[i_parameter] == 0:
 					continue
@@ -547,7 +547,7 @@ class optimization_needles(optimization_refinement):
 		for i_material in range(self.nb_needle_materials):
 			material_nb = self.needle_material_nbs[i_material]
  			
- 			for i_parameter in range(self.nb_parameters):
+			for i_parameter in range(self.nb_parameters):
 				dummy, layer_nb = self.parameters[i_parameter]
 				
 				# It takes a minimum of three points to do quadratic
@@ -599,8 +599,8 @@ class optimization_needles(optimization_refinement):
 		
 		# Build lists of needle depths and values (for the user interface).
 		nb_needles = len(self.needles)
- 		self.needle_depths = [thickness_at_beginning[self.needles[i_needle][0]] + self.needles[i_needle][1] for i_needle in range(nb_needles)]
- 		self.needle_values = [self.needles[i_needle][3] for i_needle in range(nb_needles)]
+		self.needle_depths = [thickness_at_beginning[self.needles[i_needle][0]] + self.needles[i_needle][1] for i_needle in range(nb_needles)]
+		self.needle_values = [self.needles[i_needle][3] for i_needle in range(nb_needles)]
 		
 		self.last_attempt_material_set = set(self.needle_material_nbs)
 		
@@ -804,21 +804,21 @@ class optimization_needles(optimization_refinement):
 		down the optimization."""
 		
 		# Execute one Levenberg-Marquardt iteration.
- 		self.status = self.optimizer.iterate()
+		self.status = self.optimizer.iterate()
 		
 		# Get chi square.
- 		self.chi_2 = self.optimizer.get_chi_2()
+		self.chi_2 = self.optimizer.get_chi_2()
 		
 		self.iteration += 1
- 		
- 		# Stop if the solution is not improving.
- 		if self.status != Levenberg_Marquardt.IMPROVING:
+
+		# Stop if the solution is not improving.
+		if self.status != Levenberg_Marquardt.IMPROVING:
 			self.stop_criteria_met = True
- 		
- 		# Verify if the maximum number of iterations has been reached (when
- 		# specified).
- 		if self.max_iterations and self.iteration >= self.max_iterations:
- 			self.max_iterations_reached = True
+
+		# Verify if the maximum number of iterations has been reached (when
+		# specified).
+		if self.max_iterations and self.iteration >= self.max_iterations:
+			self.max_iterations_reached = True
 		
 		self.just_removed_thin_layers = False
 		

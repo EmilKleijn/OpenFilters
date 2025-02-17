@@ -27,8 +27,6 @@
 
 
 
-# REMOVE when Python 3.0 will be out.
-from __future__ import division
 
 import sys
 import os.path
@@ -108,7 +106,7 @@ max_marker_size = 100
 
 # The canvas size if limited to C longs. To allow markers, it is
 # reduced by the maximum marker size.
-maxint = sys.maxint - max_marker_size
+maxint = sys.maxsize - max_marker_size
 minint = -maxint - 1 + max_marker_size
 
 # Zero and negative value cannot be handled correctly in log scale. The
@@ -583,8 +581,8 @@ class plot_curve(object):
 		It draws a line and eventually a marker according to the curve
 		style."""
 		
-		DC.SetPen(wx.Pen(wx.NamedColour(self.style.colour), self.style.width))
-		DC.SetBrush(wx.Brush(wx.NamedColour(self.style.colour), wx.TRANSPARENT))
+		DC.SetPen(wx.Pen(wx.Colour(self.style.colour), self.style.width))
+		DC.SetBrush(wx.Brush(wx.Colour(self.style.colour), wx.TRANSPARENT))
 		
 		if self.style.width > 0:
 			DC.DrawLine(x_left, y_bottom, x_right, y_top)
@@ -643,8 +641,8 @@ class plot_curve(object):
 		time, and you only want to show a recently acquired part of the
 		curve."""
 		
-		DC.SetPen(wx.Pen(wx.NamedColour(self.style.colour), self.style.width))
-		DC.SetBrush(wx.Brush(wx.NamedColour(self.style.colour), wx.TRANSPARENT))
+		DC.SetPen(wx.Pen(wx.Colour(self.style.colour), self.style.width))
+		DC.SetBrush(wx.Brush(wx.Colour(self.style.colour), wx.TRANSPARENT))
 		
 		# Calculate half the marker size.
 		half_size = limited_int(0.5*self.style.marker_size)
@@ -1150,8 +1148,8 @@ class plot_curve_segmented(object):
 		y = limited_int(0.5*(y_bottom+y_top))
 		half_size = limited_int(0.5*self.style.marker_size)
 		
-		DC.SetPen(wx.Pen(wx.NamedColour(self.style.colour_1), self.style.width))
-		DC.SetBrush(wx.Brush(wx.NamedColour(self.style.colour_1), wx.TRANSPARENT))
+		DC.SetPen(wx.Pen(wx.Colour(self.style.colour_1), self.style.width))
+		DC.SetBrush(wx.Brush(wx.Colour(self.style.colour_1), wx.TRANSPARENT))
 		
 		DC.DrawLine(x_left, y_bottom, x, y)
 		
@@ -1170,8 +1168,8 @@ class plot_curve_segmented(object):
 		elif self.style.marker == "o":
 			DC.DrawCircle(x, y, half_size)
 		
-		DC.SetPen(wx.Pen(wx.NamedColour(self.style.colour_2), self.style.width))
-		DC.SetBrush(wx.Brush(wx.NamedColour(self.style.colour_2), wx.TRANSPARENT))
+		DC.SetPen(wx.Pen(wx.Colour(self.style.colour_2), self.style.width))
+		DC.SetBrush(wx.Brush(wx.Colour(self.style.colour_2), wx.TRANSPARENT))
 		
 		DC.DrawLine(x, y, x_right, y_top)
 	
@@ -1208,11 +1206,11 @@ class plot_curve_segmented(object):
 		for i in range(len(self.Xs)):
 			if self.Xs[i]:
 				if round(0.5*i) == 0.5*i:
-					DC.SetPen(wx.Pen(wx.NamedColour(self.style.colour_1), self.style.width))
-					DC.SetBrush(wx.Brush(wx.NamedColour(self.style.colour_1), wx.TRANSPARENT))
+					DC.SetPen(wx.Pen(wx.Colour(self.style.colour_1), self.style.width))
+					DC.SetBrush(wx.Brush(wx.Colour(self.style.colour_1), wx.TRANSPARENT))
 				else:
-					DC.SetPen(wx.Pen(wx.NamedColour(self.style.colour_2), self.style.width))
-					DC.SetBrush(wx.Brush(wx.NamedColour(self.style.colour_2), wx.TRANSPARENT))
+					DC.SetPen(wx.Pen(wx.Colour(self.style.colour_2), self.style.width))
+					DC.SetBrush(wx.Brush(wx.Colour(self.style.colour_2), wx.TRANSPARENT))
 				
 				if len(self.Xs[i]) > 0:
 					
@@ -1767,8 +1765,8 @@ class plot(wx.Window):
 		self.clicked_curve = 0
 		
 		# Create and initialize a buffer to avoir flicker.
-		self.width, self.height = self.GetClientSizeTuple()
-		self.buffer = wx.EmptyBitmap(self.width, self.height)
+		self.width, self.height = self.GetClientSize()
+		self.buffer = wx.Bitmap(self.width, self.height)
 	
 	
 	######################################################################
@@ -1879,9 +1877,11 @@ class plot(wx.Window):
 		
 		This method redraws the window when its size changes."""
 		
-		self.width, self.height = self.GetClientSizeTuple()
-		self.buffer = wx.EmptyBitmap(self.width, self.height)
-		
+		self.width, self.height = self.GetClientSize()
+		if self.width > 0 and self.height > 0:
+			self.buffer = wx.Bitmap(self.width, self.height)
+		else:
+			pass
 		self.update()
 	
 	
@@ -1910,12 +1910,12 @@ class plot(wx.Window):
 		else:
 			DC = wx.MemoryDC()
 			DC.SelectObject(self.buffer)
-		
-		DC.BeginDrawing()
+
+		#DC.BeginDrawing()
 		
 		function(DC, *args)
 		
-		DC.EndDrawing()
+		#DC.EndDrawing()
 		
 		if not self.use_buffered_drawing:
 			wx.ClientDC(self).Blit(0, 0, self.width, self.height, DC, 0, 0)
@@ -2504,7 +2504,7 @@ class plot(wx.Window):
 			return
 		
 		# Get the size of the window.
-		(width, height) = self.GetClientSizeTuple()
+		(width, height) = self.GetClientSize()
 		
 		# Set the font.
 		font = DC.GetFont()
@@ -2591,8 +2591,8 @@ class plot(wx.Window):
 		  DC                 the device context on which to design the
 		                     axes."""
 		
-		DC.SetPen(wx.Pen(wx.NamedColour("BLACK"), 1))
-		
+		DC.SetPen(wx.Pen(wx.Colour("BLACK"), 1))
+
 		# Set the font.
 		font = DC.GetFont()
 		font.SetFamily(wx.SWISS)
@@ -2600,7 +2600,7 @@ class plot(wx.Window):
 		DC.SetFont(font)
 		
 		# Get the size of the window.
-		(width, height) = self.GetClientSizeTuple()
+		(width, height) = self.GetClientSize()
 		
 		# Get the bounding box of the curves.
 		x_min, x_max, y_min, y_max = self.bounding_box()
@@ -3087,11 +3087,11 @@ class plot(wx.Window):
 					y_tick = math.log10(tick)
 				y_tick = limited_int(self.scale_y*(y_tick-self.shift_y))
 				# Draw the tick.
-				DC.SetPen(wx.Pen(wx.NamedColour("BLACK"), 1))
+				DC.SetPen(wx.Pen(wx.Colour("BLACK"), 1))
 				DC.DrawLine(x_tick_left, y_tick, x_tick_right, y_tick)
 				# Draw the grid.
 				if self.grid:
-					DC.SetPen(wx.Pen(wx.NamedColour("LIGHT GREY"), 1))
+					DC.SetPen(wx.Pen(wx.Colour("LIGHT GREY"), 1))
 					DC.DrawLine(self.left_axe, y_tick, self.right_axe, y_tick)
 				text_extent = DC.GetTextExtent(y_ticks_format_string % tick)
 				x_text_left = self.left_axe-half_font_size-text_extent[0]
@@ -3105,10 +3105,10 @@ class plot(wx.Window):
 				else:
 					x_tick = math.log10(tick)
 				x_tick = limited_int(self.scale_x*(x_tick-self.shift_x))
-				DC.SetPen(wx.Pen(wx.NamedColour("BLACK"), 1))
+				DC.SetPen(wx.Pen(wx.Colour("BLACK"), 1))
 				DC.DrawLine(x_tick, y_tick_bottom, x_tick, y_tick_top)
 				if self.grid:
-					DC.SetPen(wx.Pen(wx.NamedColour("LIGHT GREY"), 1))
+					DC.SetPen(wx.Pen(wx.Colour("LIGHT GREY"), 1))
 					DC.DrawLine(x_tick, self.bottom_axe, x_tick, self.top_axe)
 				text_extent = DC.GetTextExtent(x_ticks_format_string % tick)
 				x_text_left = x_tick - limited_int(0.5*text_extent[0])
@@ -3117,7 +3117,7 @@ class plot(wx.Window):
 		
 		# Drawing the axes. We draw the axis after the ticks and the grid
 		# because the grid makes grey lines on the axes.
-		DC.SetPen(wx.Pen(wx.NamedColour("BLACK"), 1))
+		DC.SetPen(wx.Pen(wx.Colour("BLACK"), 1))
 		DC.DrawLine(self.left_axe, self.bottom_axe, self.right_axe+1, self.bottom_axe)
 		DC.DrawLine(self.left_axe, self.top_axe, self.right_axe+1, self.top_axe)
 		DC.DrawLine(self.left_axe, self.bottom_axe, self.left_axe, self.top_axe-1)

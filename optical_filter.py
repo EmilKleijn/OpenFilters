@@ -6442,7 +6442,7 @@ def parse_filter(lines, file_version, material_catalog = None):
 	# Parse the file.
 	try:
 		keywords, values = simple_parser.parse(lines)
-	except simple_parser.parsing_error, error:
+	except simple_parser.parsing_error as error:
 		raise filter_error("Cannot parse filter because %s" % error.get_value())
 	
 	description = None
@@ -6790,7 +6790,7 @@ def parse_filter(lines, file_version, material_catalog = None):
 		elif keyword == "FrontStackFormula" or keyword == "BackStackFormula":
 			try:
 				sub_keywords, sub_values = simple_parser.parse(value)
-			except simple_parser.parsing_error, error:
+			except simple_parser.parsing_error as error:
 				raise filter_error(str(error))
 			if sub_keywords[0] != "Formula":
 				raise filter_error("%s must begin by the formula" % keyword)

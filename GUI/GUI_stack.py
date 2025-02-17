@@ -686,7 +686,7 @@ class formula_validator(wx.PyValidator):
 		# Try to interpret the stack formula.
 		try:
 			analyse_stack_formula(answer)
-		except stack_error, error:
+		except stack_error as error:
 			if not wx.Validator_IsSilent():
 				wx.Bell()
 			window.SetFocus()
@@ -721,7 +721,7 @@ class formula_validator(wx.PyValidator):
 		# Try to interpret the stack formula.
 		try:
 			analyse_stack_formula(answer)
-		except stack_error, error:
+		except stack_error as error:
 			if not wx.Validator_IsSilent():
 				wx.Bell()
 			window.SetFocus()

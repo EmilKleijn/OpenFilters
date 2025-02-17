@@ -747,14 +747,14 @@ class optimization_refinement_dialog(optimization_dialog):
 				result_color = wx.Colour(RGB[0]*255.0, RGB[1]*255.0, RGB[2]*255.0)
 				self.color_target_boxes[i_color_box].SetBackgroundColour(target_color)
 				if RGB_target_error:
-					self.color_target_borders[i_color_box].SetBackgroundColour(wx.NamedColour("RED"))
+					self.color_target_borders[i_color_box].SetBackgroundColour(wx.Colour("RED"))
 				else:
-					self.color_target_borders[i_color_box].SetBackgroundColour(wx.NamedColour("BLACK"))
+					self.color_target_borders[i_color_box].SetBackgroundColour(wx.Colour("BLACK"))
 				self.color_boxes[i_color_box].SetBackgroundColour(result_color)
 				if RGB_error:
-					self.color_borders[i_color_box].SetBackgroundColour(wx.NamedColour("RED"))
+					self.color_borders[i_color_box].SetBackgroundColour(wx.Colour("RED"))
 				else:
-					self.color_borders[i_color_box].SetBackgroundColour(wx.NamedColour("BLACK"))
+					self.color_borders[i_color_box].SetBackgroundColour(wx.Colour("BLACK"))
 				self.calculated_values_curve_nb.append(i_color_box)
 				i_color_box += 1
 		if self.nb_photometric_targets:
@@ -882,9 +882,9 @@ class optimization_refinement_dialog(optimization_dialog):
 				result_color = wx.Colour(RGB[0]*255.0, RGB[1]*255.0, RGB[2]*255.0)
 				self.color_boxes[self.calculated_values_curve_nb[i_target]].SetBackgroundColour(result_color)
 				if RGB_error:
-					self.color_borders[self.calculated_values_curve_nb[i_target]].SetBackgroundColour(wx.NamedColour("RED"))
+					self.color_borders[self.calculated_values_curve_nb[i_target]].SetBackgroundColour(wx.Colour("RED"))
 				else:
-					self.color_borders[self.calculated_values_curve_nb[i_target]].SetBackgroundColour(wx.NamedColour("BLACK"))
+					self.color_borders[self.calculated_values_curve_nb[i_target]].SetBackgroundColour(wx.Colour("BLACK"))
 				self.color_boxes[self.calculated_values_curve_nb[i_target]].Refresh()
 				self.color_borders[self.calculated_values_curve_nb[i_target]].Refresh()
 		if self.nb_photometric_targets:
@@ -2275,9 +2275,9 @@ class correlation_dialog(wx.Dialog):
 				self.correlation_grid.SetReadOnly(par_1, par_2)
 				if par_1 != par_2:
 					if abs(correlation) >= 0.99:
-						self.correlation_grid.SetCellBackgroundColour(par_1, par_2, wx.NamedColour("RED"))
+						self.correlation_grid.SetCellBackgroundColour(par_1, par_2, wx.Colour("RED"))
 					elif abs(correlation) >= 0.90:
-						self.correlation_grid.SetCellBackgroundColour(par_1, par_2, wx.NamedColour("YELLOW"))
+						self.correlation_grid.SetCellBackgroundColour(par_1, par_2, wx.Colour("YELLOW"))
 		
 		# Put the grid in the sizer.
 		self.main_sizer.Add(self.correlation_grid, 0, wx.TOP|wx.LEFT|wx.RIGHT, 10)

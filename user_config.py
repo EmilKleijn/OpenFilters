@@ -25,7 +25,7 @@
 
 import sys
 import os
-import ConfigParser
+import configparser as ConfigParser
 
 
 

@@ -188,7 +188,7 @@ class optimization_steps(optimization_refinement):
 		# intervals will be ignored (see below) and it takes at least 3
 		# points to detect a minimum.
 		self.nb_steps_per_layer = [0]*self.nb_parameters
- 		for i_parameter in range(self.nb_parameters):
+		for i_parameter in range(self.nb_parameters):
 			parameter_kind, layer_nb = self.parameters[i_parameter]
 			if parameter_kind == INDEX and self.add_steps_in_layer[layer_nb] and self.front_thickness[layer_nb]:
 				self.nb_steps_per_layer[i_parameter] = max(int(math.ceil(self.front_thickness[layer_nb]/self.step_spacing))+1, 5)
@@ -233,7 +233,7 @@ class optimization_steps(optimization_refinement):
 			# Give other threads a chance...
 			time.sleep(0)
 			
- 			for i_parameter in range(self.nb_parameters):
+			for i_parameter in range(self.nb_parameters):
 				if self.nb_steps_per_layer[i_parameter] != 0:
 					dummy, layer_nb = self.parameters[i_parameter]
 					
@@ -392,8 +392,8 @@ class optimization_steps(optimization_refinement):
 						# Give other threads a chance...
 						time.sleep(0)
  		
- 		# Calculate dMF for a step up or a step down.
- 		for i_parameter in range(self.nb_parameters):
+		# Calculate dMF for a step up or a step down.
+		for i_parameter in range(self.nb_parameters):
 			
 			# If there is no step for this parameter (it is a thickness, for
 			# example), immediatly jump to the next parameter.
@@ -403,8 +403,8 @@ class optimization_steps(optimization_refinement):
 			# If the index is stuck at a limit, we need the derivative of the
 			# merit function upon variation of the index to calculate the
 			# derivative of the merit function upon the addition of a step.
- 			if self.parameter_values[i_parameter] == self.parameter_min[i_parameter] or self.parameter_values[i_parameter] == self.parameter_max[i_parameter]:
- 				dMF_n = 0.0
+			if self.parameter_values[i_parameter] == self.parameter_min[i_parameter] or self.parameter_values[i_parameter] == self.parameter_max[i_parameter]:
+				dMF_n = 0.0
 				for i_target in range(self.nb_targets):
 					starting_pos = self.target_starting_position[i_target]
 					for i_value in range(len(self.target_values[i_target])):
@@ -414,25 +414,25 @@ class optimization_steps(optimization_refinement):
 						elif self.all_inequalities[pos] == Levenberg_Marquardt.LARGER and self.all_calculated_values[pos] > self.all_target_values[pos]:
 							continue
 						dMF_n -= (self.all_target_values[pos]-self.all_calculated_values[pos])/(self.all_tolerances[pos]*self.all_tolerances[pos]) * self.all_derivatives[i_parameter][pos]
- 			
- 			if self.parameter_values[i_parameter] == self.parameter_min[i_parameter]:
- 				for i_step in range(self.nb_steps_per_layer[i_parameter]):
- 					self.dMF_up[i_parameter][i_step]   =  0.5*dMF_n + self.dMF[i_parameter][i_step]
- 					self.dMF_down[i_parameter][i_step] =  0.5*dMF_n - self.dMF[i_parameter][i_step]
- 			elif self.parameter_values[i_parameter] == self.parameter_max[i_parameter]:
- 				for i_step in range(self.nb_steps_per_layer[i_parameter]):
- 					self.dMF_up[i_parameter][i_step]   = -0.5*dMF_n + self.dMF[i_parameter][i_step]
- 					self.dMF_down[i_parameter][i_step] = -0.5*dMF_n - self.dMF[i_parameter][i_step]
- 			else:
- 				for i_step in range(self.nb_steps_per_layer[i_parameter]):
- 					self.dMF_up[i_parameter][i_step]   =              self.dMF[i_parameter][i_step]
- 					self.dMF_down[i_parameter][i_step] =             -self.dMF[i_parameter][i_step]
+
+			if self.parameter_values[i_parameter] == self.parameter_min[i_parameter]:
+				for i_step in range(self.nb_steps_per_layer[i_parameter]):
+					self.dMF_up[i_parameter][i_step]   =  0.5*dMF_n + self.dMF[i_parameter][i_step]
+					self.dMF_down[i_parameter][i_step] =  0.5*dMF_n - self.dMF[i_parameter][i_step]
+			elif self.parameter_values[i_parameter] == self.parameter_max[i_parameter]:
+				for i_step in range(self.nb_steps_per_layer[i_parameter]):
+					self.dMF_up[i_parameter][i_step]   = -0.5*dMF_n + self.dMF[i_parameter][i_step]
+					self.dMF_down[i_parameter][i_step] = -0.5*dMF_n - self.dMF[i_parameter][i_step]
+			else:
+				for i_step in range(self.nb_steps_per_layer[i_parameter]):
+					self.dMF_up[i_parameter][i_step]   =              self.dMF[i_parameter][i_step]
+					self.dMF_down[i_parameter][i_step] =             -self.dMF[i_parameter][i_step]
 			
 			# Give other threads a chance...
 			time.sleep(0)
 		
 		# Find the minima.
- 		for i_parameter in range(self.nb_parameters):
+		for i_parameter in range(self.nb_parameters):
 			dummy, layer_nb = self.parameters[i_parameter]
 			
 			if self.nb_steps_per_layer[i_parameter] >= 3:
@@ -487,11 +487,11 @@ class optimization_steps(optimization_refinement):
 		
 		# Build lists of steps depths and values (for the user interface).
 		nb_steps_up = len(self.steps_up)
- 		self.step_up_depths = [thickness_at_beginning[self.steps_up[i_step][0]] + self.steps_up[i_step][1]for i_step in range(nb_steps_up)]
- 		self.step_up_values = [self.steps_up[i_step][2] for i_step in range(nb_steps_up)]
+		self.step_up_depths = [thickness_at_beginning[self.steps_up[i_step][0]] + self.steps_up[i_step][1]for i_step in range(nb_steps_up)]
+		self.step_up_values = [self.steps_up[i_step][2] for i_step in range(nb_steps_up)]
 		nb_steps_down = len(self.steps_down)
- 		self.step_down_depths = [thickness_at_beginning[self.steps_down[i_step][0]] + self.steps_down[i_step][1] for i_step in range(nb_steps_down)]
- 		self.step_down_values = [self.steps_down[i_step][2] for i_step in range(nb_steps_down)]
+		self.step_down_depths = [thickness_at_beginning[self.steps_down[i_step][0]] + self.steps_down[i_step][1] for i_step in range(nb_steps_down)]
+		self.step_down_values = [self.steps_down[i_step][2] for i_step in range(nb_steps_down)]
 		
 		if nb_steps_up + nb_steps_down:
 			self.could_add_steps_on_last_attempt = True
@@ -748,21 +748,21 @@ class optimization_steps(optimization_refinement):
 		down the optimization."""
 		
 		# Execute one Levenberg-Marquardt iteration.
- 		self.status = self.optimizer.iterate()
+		self.status = self.optimizer.iterate()
 		
 		# Get chi square.
- 		self.chi_2 = self.optimizer.get_chi_2()
+		self.chi_2 = self.optimizer.get_chi_2()
 		
 		self.iteration += 1
- 		
- 		# Stop if the solution is not improving.
- 		if self.status != Levenberg_Marquardt.IMPROVING:
+
+		# Stop if the solution is not improving.
+		if self.status != Levenberg_Marquardt.IMPROVING:
 			self.stop_criteria_met = True
  		
- 		# Verify if the maximum number of iterations has been reached (when
- 		# specified).
- 		if self.max_iterations and self.iteration >= self.max_iterations:
- 			self.max_iterations_reached = True
+		# Verify if the maximum number of iterations has been reached (when
+		# specified).
+		if self.max_iterations and self.iteration >= self.max_iterations:
+			self.max_iterations_reached = True
 		
 		self.just_removed_thin_layers = False
 		

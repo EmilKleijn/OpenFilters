@@ -972,7 +972,7 @@ COLOR_SPACE_NAMES = {color.XYZ: "XYZ",
                      color.LChuv: "LChuv",
                      color.LChab: "LChab"}
 
-COLOR_SPACES_BY_NAME = dict((value, key) for key, value in COLOR_SPACE_NAMES.iteritems())
+COLOR_SPACES_BY_NAME = dict((value, key) for key, value in COLOR_SPACE_NAMES.items())
 
 
 
@@ -991,7 +991,7 @@ def parse_target(lines, file_version):
 	
 	try:
 		keywords, values = simple_parser.parse(lines)
-	except simple_parser.parsing_error, error:
+	except simple_parser.parsing_error as error:
 		raise target_error("Cannot parse target because %s" % error.get_value())
 	
 	kind = None

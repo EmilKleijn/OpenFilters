@@ -33,7 +33,7 @@ try:
 	import threading
 except ImportError:
 	pass
-import ConfigParser
+import configparser as ConfigParser
 
 import wx
 
@@ -117,7 +117,7 @@ project_wildcard = "OpenFilters projects (*.ofp)|*.ofp|"\
 
 # Constants that represent what to update when a update event is
 # called.
-UPDATE_ALL = sys.maxint
+UPDATE_ALL = sys.maxsize
 UPDATE_MENU = 1
 UPDATE_STATUS_BAR = 2
 UPDATE_CURSOR = 4
@@ -357,7 +357,7 @@ class main_window(wx.Frame):
 			self.user_config.add_section("GUI")
 		
 		try:
-			last_used_directory = self.user_config.get("GUI", "lastuseddirectory").decode('utf-8')
+			last_used_directory = self.user_config.get("GUI", "lastuseddirectory")
 			os.chdir(last_used_directory)
 		except (ConfigParser.NoOptionError, OSError):
 			os.chdir(os.path.expanduser("~"))
@@ -365,7 +365,7 @@ class main_window(wx.Frame):
 		self.recently_opened_projects = []
 		for i in range(config.NB_RECENTLY_OPENED_PROJECTS):
 			try:
-				self.recently_opened_projects.append(self.user_config.get("GUI", "recentlyopenedproject%i" % i).decode('utf-8'))
+				self.recently_opened_projects.append(self.user_config.get("GUI", "recentlyopenedproject%i" % i))
 			except ConfigParser.NoOptionError:
 				break
 		
@@ -373,7 +373,7 @@ class main_window(wx.Frame):
 			self.user_config.add_section("Directories")
 		
 		try:
-			self.user_material_directory = self.user_config.get("Directories", "usermaterialdirectory").decode('utf-8')
+			self.user_material_directory = self.user_config.get("Directories", "usermaterialdirectory")
 		except (ConfigParser.NoOptionError):
 			self.user_material_directory = None
 	
@@ -482,7 +482,7 @@ class main_window(wx.Frame):
 		# Create a submenu for the addition of targets.
 		self.add_target_menu = wx.Menu()
 		self.add_target_menu_ID = wx.NewId()
-		self.project_menu.AppendMenu(self.add_target_menu_ID, "Add &Target", self.add_target_menu)
+		self.project_menu.Append(self.add_target_menu_ID, "Add &Target", self.add_target_menu)
 		
 		self.add_reflection_target_ID = wx.NewId()
 		self.add_target_menu.Append(self.add_reflection_target_ID, "Add &Reflection Target\tCtrl+R", "Add a reflection target to the project")
@@ -644,7 +644,7 @@ class main_window(wx.Frame):
 		# Create a submenu for modules.
 		self.modules_menu = wx.Menu()
 		self.modules_menu_ID = wx.NewId()
-		self.filter_menu.AppendMenu(self.modules_menu_ID, "M&odules", self.modules_menu)
+		self.filter_menu.Append(self.modules_menu_ID, "M&odules", self.modules_menu)
 		
 		self.filter_menu.AppendSeparator()
 		
@@ -752,7 +752,7 @@ class main_window(wx.Frame):
 		# Create a submenu for calculations in reverse direction.
 		self.reverse_direction_menu = wx.Menu()
 		self.reverse_direction_menu_ID = wx.NewId()
-		self.analyse_menu.AppendMenu(self.reverse_direction_menu_ID, "Re&verse direction", self.reverse_direction_menu)
+		self.analyse_menu.Append(self.reverse_direction_menu_ID, "Re&verse direction", self.reverse_direction_menu)
 		
 		self.calculate_reflection_reverse_ID = wx.NewId()
 		self.reverse_direction_menu.Append(self.calculate_reflection_reverse_ID, "Calculate &Reflection\tCtrl+Alt+R", "Calculate the reflection spectrum in reverse direction of the selected filter")
@@ -882,7 +882,7 @@ class main_window(wx.Frame):
 		# Create a submenu for example projects.
 		self.example_menu = wx.Menu()
 		self.example_menu_ID = wx.NewId()
-		self.help_menu.AppendMenu(self.example_menu_ID, "&Open Example Project", self.example_menu)
+		self.help_menu.Append(self.example_menu_ID, "&Open Example Project", self.example_menu)
 		
 		# Add all examples to the submenu.
 		example_directory = os.path.join(main_directory.get_main_directory(), "examples")
@@ -1262,7 +1262,7 @@ class main_window(wx.Frame):
 		self.filter_panel_sizer_1.Add(wx.StaticText(self.filter_panel, -1, "Description:"),
 		                              0, wx.ALIGN_LEFT|wx.ALIGN_CENTER_VERTICAL|wx.LEFT, 5)
 		self.filter_panel_sizer_1.Add(self.filter_description_box, 1, wx.ALIGN_CENTER_VERTICAL|wx.LEFT|wx.RIGHT, 5)
-		self.filter_panel_sizer_1.Add(close_botton, 0, wx.ALIGN_RIGHT|wx.ALIGN_CENTER_VERTICAL|wx.RIGHT, 5)
+		self.filter_panel_sizer_1.Add(close_botton, 0, wx.ALIGN_CENTER_VERTICAL|wx.RIGHT, 5) #wx.ALIGN_RIGHT
 		
 		self.filter_panel_sizer.Add(self.filter_panel_sizer_1, 0, wx.EXPAND|wx.TOP, 5)
 		self.filter_panel_sizer.Add(self.filter_notebook, 1, wx.EXPAND|wx.ALL, 5)
@@ -1290,7 +1290,7 @@ class main_window(wx.Frame):
 		for module in self.modules:
 			module_menu_ID = wx.NewId()
 			module_menu = wx.Menu()
-			self.modules_menu.AppendMenu(module_menu_ID, module.get_name(), module_menu)
+			self.modules_menu.Append(module_menu_ID, module.get_name(), module_menu)
 			module.set_menu_ID(module_menu_ID)
 			
 			submodule_IDs = []
@@ -1298,7 +1298,8 @@ class main_window(wx.Frame):
 				submodule_ID = wx.NewId()
 				module_menu.Append(submodule_ID, submodule.get_name(), submodule.get_name())
 				submodule_IDs.append(submodule_ID)
-				wx.EVT_MENU(self, submodule_ID, self.on_execute_module)
+				#wx.EVT_MENU(self, submodule_ID, self.on_execute_module)
+				self.Bind(event=wx.EVT_MENU, handler=self.on_execute_module, id=submodule_ID)
 			module.set_submodule_IDs(submodule_IDs)
 	
 	
@@ -1426,8 +1427,8 @@ class main_window(wx.Frame):
 			filename = self.open_example_IDs[id]
 		
 		else:
-			window = wx.FileDialog(self, "Open Project", os.getcwd(), "", project_wildcard, style = wx.OPEN|wx.CHANGE_DIR)
-			
+			window = wx.FileDialog(self, "Open Project", os.getcwd(), "", project_wildcard, style = wx.FD_OPEN|wx.FD_CHANGE_DIR)
+
 			answer = window.ShowModal()
 			if answer == wx.ID_OK:
 				filename = window.GetPath()
@@ -1440,7 +1441,7 @@ class main_window(wx.Frame):
 			material_catalog = self.get_material_catalog()
 			try:
 				self.project = project.read_project(filename, material_catalog)
-			except (project.project_error, optical_filter.filter_error, targets.target_error, materials.material_error), error:
+			except (project.project_error, optical_filter.filter_error, targets.target_error, materials.material_error) as error:
 				if filename in self.recently_opened_projects:
 					self.recently_opened_projects.remove(filename)
 				wx.MessageBox("An error occured while opening the project.\n\n%s" % error, "Error", wx.ICON_ERROR|wx.OK)
@@ -1544,7 +1545,7 @@ class main_window(wx.Frame):
 		This method takes a single argument:
 		  event              the event."""
 		
-		window = wx.FileDialog(self, "Save Project as", os.getcwd(), os.path.basename(self.project_filename), project_wildcard, style = wx.SAVE|wx.OVERWRITE_PROMPT|wx.CHANGE_DIR)
+		window = wx.FileDialog(self, "Save Project as", os.getcwd(), os.path.basename(self.project_filename), project_wildcard, style = wx.FD_SAVE|wx.FD_OVERWRITE_PROMPT|wx.FD_CHANGE_DIR)
 		
 		answer = window.ShowModal()
 		if answer == wx.ID_OK:
@@ -1578,7 +1579,7 @@ class main_window(wx.Frame):
 		# Verify that the file still exist.
 		try:
 			saved_version = project.read_project(self.project_filename)
-		except (project.project_error, optical_filter.filter_error, materials.material_error), error:
+		except (project.project_error, optical_filter.filter_error, materials.material_error) as error:
 			wx.MessageBox("It is impossible to reopen the project.\n\n%s" % error, "Error", wx.ICON_ERROR|wx.OK)
 			return
 		
@@ -1661,10 +1662,10 @@ class main_window(wx.Frame):
 		
 		try:
 			nb = self.project.add_filter()
-		except materials.material_error, error:
+		except materials.material_error as error:
 			wx.MessageBox("It is impossible to create a new filter because there is a problem with one of the default materials.\n\n%s" % error, "Error", wx.ICON_ERROR|wx.OK)
 			return
-		except optical_filter.filter_error, error:
+		except optical_filter.filter_error as error:
 			wx.MessageBox("It is impossible to create a new filter.\n\n%s" % error, "Error", wx.ICON_ERROR|wx.OK)
 			return
 		
@@ -1769,7 +1770,7 @@ class main_window(wx.Frame):
 		if answer == wx.ID_OK:
 			try:
 				target = window.get_target()
-			except targets.target_error, error:
+			except targets.target_error as error:
 				wx.MessageBox("Error while reading the target.\n\n%s" % error, "Error", wx.ICON_ERROR|wx.OK)
 		
 		window.Destroy()
@@ -1982,7 +1983,7 @@ class main_window(wx.Frame):
 		if answer == wx.ID_OK:
 			try:
 				window.apply()
-			except import_layer_error, error:
+			except import_layer_error as error:
 				wx.MessageBox("Error while importing layer.\n\n%s" % error, "Error", wx.ICON_ERROR|wx.OK)
 			else:
 				self.filter_grid.reset_filter(self.selected_filter_nb)
@@ -2297,7 +2298,7 @@ class main_window(wx.Frame):
 			
 			try:
 				export.export_results_to_text(filename, data)
-			except IOError, error:
+			except IOError as error:
 				wx.MessageBox("Exportation failed.\n\n%s" % error, "Error", wx.ICON_ERROR|wx.OK)
 			
 			self.SetCursor(wx.StockCursor(wx.CURSOR_DEFAULT))
@@ -2328,7 +2329,7 @@ class main_window(wx.Frame):
 				self.pages[selected_page_nb].save_to_file(filename)
 			except KeyError:
 				wx.MessageBox("Invalid file extension.", "Error", wx.ICON_ERROR|wx.OK)
-			except IOError, error:
+			except IOError as error:
 				wx.MessageBox("Exportation failed.\n\n%s" % error, "Error", wx.ICON_ERROR|wx.OK)
 			
 			self.SetCursor(wx.StockCursor(wx.CURSOR_DEFAULT))

@@ -576,7 +576,7 @@ class manage_materials_dialog(wx.Dialog):
 		if answer == wx.ID_OK:
 			try:
 				material = window.get_material()
-			except materials.material_error, error:
+			except materials.material_error as error:
 				wx.MessageBox("An error occured while importing the material.\n\n%s" % error, "Error", wx.ICON_ERROR|wx.OK)
 		
 		window.Destroy()

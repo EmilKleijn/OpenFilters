@@ -97,25 +97,25 @@ class filter_property_dialog_validator(wx.PyValidator):
 		defined or False otherwise."""
 		
 		# Verify that to_wavelength is larger that from_wavelength.
-		from_wavelength = float(parent.from_wavelength_box.GetValue())
-		to_wavelength = float(parent.to_wavelength_box.GetValue())
+		from_wavelength = float(parent.Parent.from_wavelength_box.GetValue())
+		to_wavelength = float(parent.Parent.to_wavelength_box.GetValue())
 		if to_wavelength < from_wavelength:
 			if not wx.Validator_IsSilent():
 				wx.Bell()
-			parent.to_wavelength_box.SetFocus()
-			parent.to_wavelength_box.SetSelection(0, 1000)
-			parent.Refresh()
+			parent.Parent.to_wavelength_box.SetFocus()
+			parent.Parent.to_wavelength_box.SetSelection(0, 1000)
+			parent.Parent.Refresh()
 			return False
 		
 		# Verify that by_wavelength is smaller than the difference between
 		# from_wavelength and to_wavelength.
-		by_wavelength = float(parent.by_wavelength_box.GetValue())
+		by_wavelength = float(parent.Parent.by_wavelength_box.GetValue())
 		if by_wavelength >= (to_wavelength - from_wavelength):
 			if not wx.Validator_IsSilent():
 				wx.Bell()
-			parent.by_wavelength_box.SetFocus()
-			parent.by_wavelength_box.SetSelection(0, 1000)
-			parent.Refresh()
+			parent.Parent.by_wavelength_box.SetFocus()
+			parent.Parent.by_wavelength_box.SetSelection(0, 1000)
+			parent.Parent.Refresh()
 			return False
 		
 		return True
@@ -673,14 +673,14 @@ class filter_property_dialog(wx.Dialog):
 			try:
 				self.filter.set_step_spacing(step_spacing)
 				modified = True
-			except graded.grading_error, error:
+			except graded.grading_error as error:
 				wx.MessageBox("Could not change the step spacing.\n\n%s" % error, "Error", wx.ICON_ERROR|wx.OK)
 		
 		if minimum_thickness != self.filter.get_minimum_thickness():
 			try:
 				self.filter.set_minimum_thickness(minimum_thickness)
 				modified = True
-			except graded.grading_error, error:
+			except graded.grading_error as error:
 				wx.MessageBox("Could not change the sublayer minimum thickness.\n\n%s" % error, "Error", wx.ICON_ERROR|wx.OK)
 		
 		if illuminant != self.filter.get_illuminant():

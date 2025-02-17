@@ -204,5 +204,5 @@ def show_matrix(A):
 	nb_row = len(A[0])
 	for row in range(nb_row):
 		for col in range(nb_col):
-			print " %16.12f" % A[col][row],
-		print ""
+			print(" %16.12f" % A[col][row])
+		print("")

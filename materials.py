@@ -1989,7 +1989,7 @@ def parse_material(name, lines):
 	
 	try:
 		keywords, values = simple_parser.parse(lines)
-	except simple_parser.parsing_error, error:
+	except simple_parser.parsing_error as error:
 		raise material_parsing_error("Cannot parse material because %s" % error.get_value())
 	
 	description = None
