@@ -1,7 +1,7 @@
 LIBRARY   _ABELES.DLL
 
 EXPORTS
-	init_abeles
+	PyInit__abeles
 	
 	new_wvls
 	del_wvls

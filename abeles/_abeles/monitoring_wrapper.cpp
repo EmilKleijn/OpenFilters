@@ -173,7 +173,7 @@ static void dealloc_monitoring_matrices_wrapper(monitoring_matrices_wrapper_obje
 
 	Py_XDECREF(self->wvls);
 
-	self->ob_type->tp_free((PyObject*)self);
+	self->ob_base.ob_type->tp_free((PyObject*)self);
 }
 
 
@@ -321,7 +321,7 @@ static PyObject * monitoring_matrices_wrapper_subscript(monitoring_matrices_wrap
 	}
 	else if (PySlice_Check(item))
 	{
-		if (PySlice_GetIndicesEx((PySliceObject*)item, self->matrices->length, &start, &stop, &step, &slicelength) < 0)
+		if (PySlice_GetIndicesEx((PyObject*)item, self->matrices->length, &start, &stop, &step, &slicelength) < 0)
 			return NULL;
 
 		if (slicelength <= 0)
@@ -379,45 +379,44 @@ static PyMappingMethods monitoring_matrices_wrapper_as_mapping = {
 
 
 PyTypeObject monitoring_matrices_wrapper_type = {
-	PyObject_HEAD_INIT(NULL)
-	0,																									/* ob_size */
-	"abeles.monitoring_matrices",												/* tp_name */
-	sizeof(monitoring_matrices_wrapper_object),					/* tp_basicsize */
-	0,																									/* tp_itemsize */
+	PyVarObject_HEAD_INIT(NULL, 0)
+	"abeles.monitoring_matrices",							/* tp_name */
+	sizeof(monitoring_matrices_wrapper_object),				/* tp_basicsize */
+	0,														/* tp_itemsize */
 	(destructor)dealloc_monitoring_matrices_wrapper,		/* tp_dealloc */
-	0,																									/* tp_print */
-	0,																									/* tp_getattr */
-	0,																									/* tp_setattr */
-	0,																									/* tp_compare */
-	0,																									/* tp_repr */
-	0,																									/* tp_as_number */
-	&monitoring_matrices_wrapper_as_sequence,						/* tp_as_sequence */
-	&monitoring_matrices_wrapper_as_mapping,						/* tp_as_mapping */
-	0,																									/* tp_hash */
-	0,																									/* tp_call */
-	0,																									/* tp_str */
-	0,																									/* tp_getattro */
-	0,																									/* tp_setattro */
-	0,																									/* tp_as_buffer */
-	Py_TPFLAGS_DEFAULT,																	/* tp_flags */
-	"monitoring_matrices class",												/* tp_doc */
-	0,																									/* tp_traverse */
-	0,																									/* tp_clear */
-	0,																									/* tp_richcompare */
-	0,																									/* tp_weaklistoffset */
-	0,																									/* tp_iter */
-	0,																									/* tp_iternext */
-	monitoring_matrices_wrapper_type_methods,						/* tp_methods */
-	0,																									/* tp_members */
-	0,																									/* tp_getset */
-	0,																									/* tp_base */
-	0,																									/* tp_dict */
-	0,																									/* tp_descr_get */
-	0,																									/* tp_descr_set */
-	0,																									/* tp_dictoffset */
-	(initproc)init_monitoring_matrices_wrapper,					/* tp_init */
-	0,																									/* tp_alloc */
-	new_monitoring_matrices_wrapper,										/* tp_new */
+	0,														/* tp_vectorcall_offset */
+	0,														/* tp_getattr */
+	0,														/* tp_setattr */
+	0,														/* tp_async */
+	0,														/* tp_repr */
+	0,														/* tp_as_number */
+	&monitoring_matrices_wrapper_as_sequence,				/* tp_as_sequence */
+	&monitoring_matrices_wrapper_as_mapping,				/* tp_as_mapping */
+	0,														/* tp_hash */
+	0,														/* tp_call */
+	0,														/* tp_str */
+	0,														/* tp_getattro */
+	0,														/* tp_setattro */
+	0,														/* tp_as_buffer */
+	Py_TPFLAGS_DEFAULT,										/* tp_flags */
+	"monitoring_matrices class",							/* tp_doc */
+	0,														/* tp_traverse */
+	0,														/* tp_clear */
+	0,														/* tp_richcompare */
+	0,														/* tp_weaklistoffset */
+	0,														/* tp_iter */
+	0,														/* tp_iternext */
+	monitoring_matrices_wrapper_type_methods,				/* tp_methods */
+	0,														/* tp_members */
+	0,														/* tp_getset */
+	0,														/* tp_base */
+	0,														/* tp_dict */
+	0,														/* tp_descr_get */
+	0,														/* tp_descr_set */
+	0,														/* tp_dictoffset */
+	(initproc)init_monitoring_matrices_wrapper,				/* tp_init */
+	0,														/* tp_alloc */
+	new_monitoring_matrices_wrapper,						/* tp_new */
 };
 
 

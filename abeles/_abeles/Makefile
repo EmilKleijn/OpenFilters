@@ -40,7 +40,7 @@ ifeq ($(OS),Windows_NT)
   
   CFLAGS = -c -O3
   
-  PYTHON_HEADER_PATH = C:/Python27/include
+  PYTHON_HEADER_PATH = C:/Python310/include
   
   ifdef PROCESSOR_ARCHITEW6432
     ARCHITECTURE = $(PROCESSOR_ARCHITEW6432)
@@ -56,13 +56,13 @@ ifeq ($(OS),Windows_NT)
   
   CFLAGS_FOR_PYTHON_WRAPPERS = -I$(PYTHON_HEADER_PATH) -D_hypot=hypot $(ARCHITECTURE_CFLAGS_FOR_PYTHON_WRAPPERS)
   
-  PYTHON_LIB_PATH = C:/Python27/libs
+  PYTHON_LIB_PATH = C:/Python310/libs
   SPECIAL_LINK_FLAGS = 
   LINK_FLAGS = -L$(PYTHON_LIB_PATH) $(SPECIAL_LINK_FLAGS)
-  LINK_SYNTAX = -mdll\
+  LINK_SYNTAX = -shared -static\
                 -o _abeles.$(SO)\
                 $(objects) $(objects_wrapper) _abeles.def\
-                -lpython27
+                -lpython310
   
   RM_FLAGS = -f
 

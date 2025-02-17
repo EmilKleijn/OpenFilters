@@ -27,7 +27,7 @@
  *
  */
 
-
+#define PY_SSIZE_T_CLEAN
 #include <Python.h>
 
 #include "_abeles.h"
@@ -38,75 +38,81 @@
 extern "C" {
 #endif
 
+PyDoc_STRVAR(doc_mod, "Module document\n");
 
 static PyMethodDef abeles_methods[] =
 {
-	{NULL} /* Sentinel */
+	{NULL, NULL, 0, NULL}        /* Sentinel */
 };
 
+static struct PyModuleDef abeles_moduledef = {
+	.m_base = PyModuleDef_HEAD_INIT,
+	.m_name = "_abeles",
+	.m_doc = doc_mod,
+	.m_size = -1,
+	.m_methods = abeles_methods
+};
 
 /*********************************************************************/
 /*                                                                   */
-/* init_abeles                                                       */
+/* PyInit__abeles                                                    */
 /*                                                                   */
 /*                                                                   */
 /* Initialize this module so that it can be called from Python.      */
 /*                                                                   */
 /*********************************************************************/
-PyMODINIT_FUNC init_abeles()
+PyMODINIT_FUNC PyInit__abeles()
 {
 	PyObject*					module;
-
+	
 	/* Make sure that all types are ready. */
-	if (PyType_Ready(&wvls_wrapper_type) < 0) return;
-	if (PyType_Ready(&N_wrapper_type) < 0) return;
-	if (PyType_Ready(&N_mixture_wrapper_type) < 0) return;
-	if (PyType_Ready(&constant_wrapper_type) < 0) return;
-	if (PyType_Ready(&table_wrapper_type) < 0) return;
-	if (PyType_Ready(&Cauchy_wrapper_type) < 0) return;
-	if (PyType_Ready(&Sellmeier_wrapper_type) < 0) return;
-	if (PyType_Ready(&constant_mixture_wrapper_type) < 0) return;
-	if (PyType_Ready(&table_mixture_wrapper_type) < 0) return;
-	if (PyType_Ready(&Cauchy_mixture_wrapper_type) < 0) return;
-	if (PyType_Ready(&Sellmeier_mixture_wrapper_type) < 0) return;
-	if (PyType_Ready(&sin2_wrapper_type) < 0) return;
-	if (PyType_Ready(&matrices_wrapper_type) < 0) return;
-	if (PyType_Ready(&r_and_t_wrapper_type) < 0) return;
-	if (PyType_Ready(&spectrum_wrapper_type) < 0) return;
-	if (PyType_Ready(&R_wrapper_type) < 0) return;
-	if (PyType_Ready(&T_wrapper_type) < 0) return;
-	if (PyType_Ready(&A_wrapper_type) < 0) return;
-	if (PyType_Ready(&phase_wrapper_type) < 0) return;
-	if (PyType_Ready(&GD_wrapper_type) < 0) return;
-	if (PyType_Ready(&GDD_wrapper_type) < 0) return;
-	if (PyType_Ready(&Psi_and_Delta_wrapper_type) < 0) return;
-	if (PyType_Ready(&admittance_wrapper_type) < 0) return;
-	if (PyType_Ready(&circle_wrapper_type) < 0) return;
-	if (PyType_Ready(&electric_field_wrapper_type) < 0) return;
-	if (PyType_Ready(&monitoring_matrices_wrapper_type) < 0) return;
-	if (PyType_Ready(&pre_and_post_matrices_wrapper_type) < 0) return;
-	if (PyType_Ready(&dM_wrapper_type) < 0) return;
-	if (PyType_Ready(&psi_matrices_wrapper_type) < 0) return;
-	if (PyType_Ready(&dr_and_dt_wrapper_type) < 0) return;
-	if (PyType_Ready(&dR_wrapper_type) < 0) return;
-	if (PyType_Ready(&dT_wrapper_type) < 0) return;
-	if (PyType_Ready(&dA_wrapper_type) < 0) return;
-	if (PyType_Ready(&dphase_wrapper_type) < 0) return;
-	if (PyType_Ready(&dGD_wrapper_type) < 0) return;
-	if (PyType_Ready(&dGDD_wrapper_type) < 0) return;
-	if (PyType_Ready(&needle_matrices_wrapper_type) < 0) return;
+	if (PyType_Ready(&wvls_wrapper_type) < 0) return NULL;
+	if (PyType_Ready(&N_wrapper_type) < 0) return NULL;
+	if (PyType_Ready(&N_mixture_wrapper_type) < 0) return NULL;
+	if (PyType_Ready(&constant_wrapper_type) < 0) return NULL;
+	if (PyType_Ready(&table_wrapper_type) < 0) return NULL;
+	if (PyType_Ready(&Cauchy_wrapper_type) < 0) return NULL;
+	if (PyType_Ready(&Sellmeier_wrapper_type) < 0) return NULL;
+	if (PyType_Ready(&constant_mixture_wrapper_type) < 0) return NULL;
+	if (PyType_Ready(&table_mixture_wrapper_type) < 0) return NULL;
+	if (PyType_Ready(&Cauchy_mixture_wrapper_type) < 0) return NULL;
+	if (PyType_Ready(&Sellmeier_mixture_wrapper_type) < 0) return NULL;
+	if (PyType_Ready(&sin2_wrapper_type) < 0) return NULL;
+	if (PyType_Ready(&matrices_wrapper_type) < 0) return NULL;
+	if (PyType_Ready(&r_and_t_wrapper_type) < 0) return NULL;
+	if (PyType_Ready(&spectrum_wrapper_type) < 0) return NULL;
+	if (PyType_Ready(&R_wrapper_type) < 0) return NULL;
+	if (PyType_Ready(&T_wrapper_type) < 0) return NULL;
+	if (PyType_Ready(&A_wrapper_type) < 0) return NULL;
+	if (PyType_Ready(&phase_wrapper_type) < 0) return NULL;
+	if (PyType_Ready(&GD_wrapper_type) < 0) return NULL;
+	if (PyType_Ready(&GDD_wrapper_type) < 0) return NULL;
+	if (PyType_Ready(&Psi_and_Delta_wrapper_type) < 0) return NULL;
+	if (PyType_Ready(&admittance_wrapper_type) < 0) return NULL;
+	if (PyType_Ready(&circle_wrapper_type) < 0) return NULL;
+	if (PyType_Ready(&electric_field_wrapper_type) < 0) return NULL;
+	if (PyType_Ready(&monitoring_matrices_wrapper_type) < 0) return NULL;
+	if (PyType_Ready(&pre_and_post_matrices_wrapper_type) < 0) return NULL;
+	if (PyType_Ready(&dM_wrapper_type) < 0) return NULL;
+	if (PyType_Ready(&psi_matrices_wrapper_type) < 0) return NULL;
+	if (PyType_Ready(&dr_and_dt_wrapper_type) < 0) return NULL;
+	if (PyType_Ready(&dR_wrapper_type) < 0) return NULL;
+	if (PyType_Ready(&dT_wrapper_type) < 0) return NULL;
+	if (PyType_Ready(&dA_wrapper_type) < 0) return NULL;
+	if (PyType_Ready(&dphase_wrapper_type) < 0) return NULL;
+	if (PyType_Ready(&dGD_wrapper_type) < 0) return NULL;
+	if (PyType_Ready(&dGDD_wrapper_type) < 0) return NULL;
+	if (PyType_Ready(&needle_matrices_wrapper_type) < 0) return NULL;
 
-
-	module = Py_InitModule("_abeles", abeles_methods);
-
-	if (!module) return;
+	
+	module = PyModule_Create(&abeles_moduledef);
+	if (!module) return NULL;
 
 	/* Define a few constants. */
 	PyModule_AddObject(module, "S", PyFloat_FromDouble(S));
 	PyModule_AddObject(module, "P", PyFloat_FromDouble(P));
 
 	/* Add the various objects to the module. */
-
 	Py_INCREF(&wvls_wrapper_type);
 	PyModule_AddObject(module, "wvls", (PyObject *)&wvls_wrapper_type);
 
@@ -217,6 +223,7 @@ PyMODINIT_FUNC init_abeles()
 
 	Py_INCREF(&needle_matrices_wrapper_type);
 	PyModule_AddObject(module, "needle_matrices", (PyObject *)&needle_matrices_wrapper_type);
+	return module;
 }
 
 

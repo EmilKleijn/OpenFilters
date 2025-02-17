@@ -93,7 +93,7 @@ static void dealloc_constant_wrapper(constant_wrapper_object *self)
 {
 	del_constant(self->dispersion);
 
-	self->ob_type->tp_free((PyObject*)self);
+	self->ob_base.ob_type->tp_free((PyObject*)self);
 }
 
 
@@ -179,45 +179,44 @@ static PyMethodDef constant_wrapper_type_methods[] =
 
 
 PyTypeObject constant_wrapper_type = {
-	PyObject_HEAD_INIT(NULL)
-	0,																									/* ob_size */
-	"abeles.constant",																	/* tp_name */
-	sizeof(constant_wrapper_object),										/* tp_basicsize */
-	0,																									/* tp_itemsize */
-	(destructor)dealloc_constant_wrapper,								/* tp_dealloc */
-	0,																									/* tp_print */
-	0,																									/* tp_getattr */
-	0,																									/* tp_setattr */
-	0,																									/* tp_compare */
-	0,																									/* tp_repr */
-	0,																									/* tp_as_number */
-	0,																									/* tp_as_sequence */
-	0,																									/* tp_as_mapping */
-	0,																									/* tp_hash */
-	0,																									/* tp_call */
-	0,																									/* tp_str */
-	0,																									/* tp_getattro */
-	0,																									/* tp_setattro */
-	0,																									/* tp_as_buffer */
-	Py_TPFLAGS_DEFAULT,																	/* tp_flags */
-	"constant class",																		/* tp_doc */
-	0,																									/* tp_traverse */
-	0,																									/* tp_clear */
-	0,																									/* tp_richcompare */
-	0,																									/* tp_weaklistoffset */
-	0,																									/* tp_iter */
-	0,																									/* tp_iternext */
-	constant_wrapper_type_methods,											/* tp_methods */
-	0,																									/* tp_members */
-	0,																									/* tp_getset */
-	0,																									/* tp_base */
-	0,																									/* tp_dict */
-	0,																									/* tp_descr_get */
-	0,																									/* tp_descr_set */
-	0,																									/* tp_dictoffset */
-	(initproc)init_constant_wrapper,										/* tp_init */
-	0,																									/* tp_alloc */
-	new_constant_wrapper,																/* tp_new */
+	PyVarObject_HEAD_INIT(NULL, 0)
+	"abeles.constant",										/* tp_name */
+	sizeof(constant_wrapper_object),						/* tp_basicsize */
+	0,														/* tp_itemsize */
+	(destructor)dealloc_constant_wrapper,					/* tp_dealloc */
+	0,														/* tp_vectorcall_offset */
+	0,														/* tp_getattr */
+	0,														/* tp_setattr */
+	0,														/* tp_async */
+	0,														/* tp_repr */
+	0,														/* tp_as_number */
+	0,														/* tp_as_sequence */
+	0,														/* tp_as_mapping */
+	0,														/* tp_hash */
+	0,														/* tp_call */
+	0,														/* tp_str */
+	0,														/* tp_getattro */
+	0,														/* tp_setattro */
+	0,														/* tp_as_buffer */
+	Py_TPFLAGS_DEFAULT,										/* tp_flags */
+	"constant class",										/* tp_doc */
+	0,														/* tp_traverse */
+	0,														/* tp_clear */
+	0,														/* tp_richcompare */
+	0,														/* tp_weaklistoffset */
+	0,														/* tp_iter */
+	0,														/* tp_iternext */
+	constant_wrapper_type_methods,							/* tp_methods */
+	0,														/* tp_members */
+	0,														/* tp_getset */
+	0,														/* tp_base */
+	0,														/* tp_dict */
+	0,														/* tp_descr_get */
+	0,														/* tp_descr_set */
+	0,														/* tp_dictoffset */
+	(initproc)init_constant_wrapper,						/* tp_init */
+	0,														/* tp_alloc */
+	new_constant_wrapper,									/* tp_new */
 };
 
 
@@ -286,7 +285,7 @@ static void dealloc_table_wrapper(table_wrapper_object *self)
 {
 	del_table(self->dispersion);
 
-	self->ob_type->tp_free((PyObject*)self);
+	self->ob_base.ob_type->tp_free((PyObject*)self);
 }
 
 
@@ -422,45 +421,44 @@ static PyMethodDef table_wrapper_type_methods[] =
 
 
 PyTypeObject table_wrapper_type = {
-	PyObject_HEAD_INIT(NULL)
-	0,																									/* ob_size */
-	"abeles.table",																			/* tp_name */
-	sizeof(table_wrapper_object),												/* tp_basicsize */
-	0,																									/* tp_itemsize */
-	(destructor)dealloc_table_wrapper,									/* tp_dealloc */
-	0,																									/* tp_print */
-	0,																									/* tp_getattr */
-	0,																									/* tp_setattr */
-	0,																									/* tp_compare */
-	0,																									/* tp_repr */
-	0,																									/* tp_as_number */
-	0,																									/* tp_as_sequence */
-	0,																									/* tp_as_mapping */
-	0,																									/* tp_hash */
-	0,																									/* tp_call */
-	0,																									/* tp_str */
-	0,																									/* tp_getattro */
-	0,																									/* tp_setattro */
-	0,																									/* tp_as_buffer */
-	Py_TPFLAGS_DEFAULT,																	/* tp_flags */
-	"table class",																			/* tp_doc */
-	0,																									/* tp_traverse */
-	0,																									/* tp_clear */
-	0,																									/* tp_richcompare */
-	0,																									/* tp_weaklistoffset */
-	0,																									/* tp_iter */
-	0,																									/* tp_iternext */
-	table_wrapper_type_methods,													/* tp_methods */
-	0,																									/* tp_members */
-	0,																									/* tp_getset */
-	0,																									/* tp_base */
-	0,																									/* tp_dict */
-	0,																									/* tp_descr_get */
-	0,																									/* tp_descr_set */
-	0,																									/* tp_dictoffset */
-	(initproc)init_table_wrapper,												/* tp_init */
-	0,																									/* tp_alloc */
-	new_table_wrapper,																	/* tp_new */
+	PyVarObject_HEAD_INIT(NULL, 0)
+	"abeles.table",									/* tp_name */
+	sizeof(table_wrapper_object),					/* tp_basicsize */
+	0,												/* tp_itemsize */
+	(destructor)dealloc_table_wrapper,				/* tp_dealloc */
+	0,												/* tp_vectorcall_offset */
+	0,												/* tp_getattr */
+	0,												/* tp_setattr */
+	0,												/* tp_async */
+	0,												/* tp_repr */
+	0,												/* tp_as_number */
+	0,												/* tp_as_sequence */
+	0,												/* tp_as_mapping */
+	0,												/* tp_hash */
+	0,												/* tp_call */
+	0,												/* tp_str */
+	0,												/* tp_getattro */
+	0,												/* tp_setattro */
+	0,												/* tp_as_buffer */
+	Py_TPFLAGS_DEFAULT,								/* tp_flags */
+	"table class",									/* tp_doc */
+	0,												/* tp_traverse */
+	0,												/* tp_clear */
+	0,												/* tp_richcompare */
+	0,												/* tp_weaklistoffset */
+	0,												/* tp_iter */
+	0,												/* tp_iternext */
+	table_wrapper_type_methods,						/* tp_methods */
+	0,												/* tp_members */
+	0,												/* tp_getset */
+	0,												/* tp_base */
+	0,												/* tp_dict */
+	0,												/* tp_descr_get */
+	0,												/* tp_descr_set */
+	0,												/* tp_dictoffset */
+	(initproc)init_table_wrapper,					/* tp_init */
+	0,												/* tp_alloc */
+	new_table_wrapper,								/* tp_new */
 };
 
 
@@ -517,7 +515,7 @@ static void dealloc_Cauchy_wrapper(Cauchy_wrapper_object *self)
 {
 	del_Cauchy(self->dispersion);
 
-	self->ob_type->tp_free((PyObject*)self);
+	self->ob_base.ob_type->tp_free((PyObject*)self);
 }
 
 
@@ -581,45 +579,44 @@ static PyMethodDef Cauchy_wrapper_type_methods[] =
 
 
 PyTypeObject Cauchy_wrapper_type = {
-	PyObject_HEAD_INIT(NULL)
-	0,																									/* ob_size */
-	"abeles.Cauchy",																		/* tp_name */
-	sizeof(Cauchy_wrapper_object),											/* tp_basicsize */
-	0,																									/* tp_itemsize */
-	(destructor)dealloc_Cauchy_wrapper,									/* tp_dealloc */
-	0,																									/* tp_print */
-	0,																									/* tp_getattr */
-	0,																									/* tp_setattr */
-	0,																									/* tp_compare */
-	0,																									/* tp_repr */
-	0,																									/* tp_as_number */
-	0,																									/* tp_as_sequence */
-	0,																									/* tp_as_mapping */
-	0,																									/* tp_hash */
-	0,																									/* tp_call */
-	0,																									/* tp_str */
-	0,																									/* tp_getattro */
-	0,																									/* tp_setattro */
-	0,																									/* tp_as_buffer */
-	Py_TPFLAGS_DEFAULT,																	/* tp_flags */
-	"Cauchy class",																			/* tp_doc */
-	0,																									/* tp_traverse */
-	0,																									/* tp_clear */
-	0,																									/* tp_richcompare */
-	0,																									/* tp_weaklistoffset */
-	0,																									/* tp_iter */
-	0,																									/* tp_iternext */
-	Cauchy_wrapper_type_methods,												/* tp_methods */
-	0,																									/* tp_members */
-	0,																									/* tp_getset */
-	0,																									/* tp_base */
-	0,																									/* tp_dict */
-	0,																									/* tp_descr_get */
-	0,																									/* tp_descr_set */
-	0,																									/* tp_dictoffset */
-	(initproc)init_Cauchy_wrapper,											/* tp_init */
-	0,																									/* tp_alloc */
-	new_Cauchy_wrapper,																	/* tp_new */
+	PyVarObject_HEAD_INIT(NULL, 0)
+	"abeles.Cauchy",									/* tp_name */
+	sizeof(Cauchy_wrapper_object),						/* tp_basicsize */
+	0,													/* tp_itemsize */
+	(destructor)dealloc_Cauchy_wrapper,					/* tp_dealloc */
+	0,													/* tp_vectorcall_offset */
+	0,													/* tp_getattr */
+	0,													/* tp_setattr */
+	0,													/* tp_async */
+	0,													/* tp_repr */
+	0,													/* tp_as_number */
+	0,													/* tp_as_sequence */
+	0,													/* tp_as_mapping */
+	0,													/* tp_hash */
+	0,													/* tp_call */
+	0,													/* tp_str */
+	0,													/* tp_getattro */
+	0,													/* tp_setattro */
+	0,													/* tp_as_buffer */
+	Py_TPFLAGS_DEFAULT,									/* tp_flags */
+	"Cauchy class",										/* tp_doc */
+	0,													/* tp_traverse */
+	0,													/* tp_clear */
+	0,													/* tp_richcompare */
+	0,													/* tp_weaklistoffset */
+	0,													/* tp_iter */
+	0,													/* tp_iternext */
+	Cauchy_wrapper_type_methods,						/* tp_methods */
+	0,													/* tp_members */
+	0,													/* tp_getset */
+	0,													/* tp_base */
+	0,													/* tp_dict */
+	0,													/* tp_descr_get */
+	0,													/* tp_descr_set */
+	0,													/* tp_dictoffset */
+	(initproc)init_Cauchy_wrapper,						/* tp_init */
+	0,													/* tp_alloc */
+	new_Cauchy_wrapper,									/* tp_new */
 };
 
 
@@ -676,7 +673,7 @@ static void dealloc_Sellmeier_wrapper(Sellmeier_wrapper_object *self)
 {
 	del_Sellmeier(self->dispersion);
 
-	self->ob_type->tp_free((PyObject*)self);
+	self->ob_base.ob_type->tp_free((PyObject*)self);
 }
 
 
@@ -740,45 +737,44 @@ static PyMethodDef Sellmeier_wrapper_type_methods[] =
 
 
 PyTypeObject Sellmeier_wrapper_type = {
-	PyObject_HEAD_INIT(NULL)
-	0,																									/* ob_size */
-	"abeles.Sellmeier",																	/* tp_name */
-	sizeof(Sellmeier_wrapper_object),										/* tp_basicsize */
-	0,																									/* tp_itemsize */
-	(destructor)dealloc_Sellmeier_wrapper,							/* tp_dealloc */
-	0,																									/* tp_print */
-	0,																									/* tp_getattr */
-	0,																									/* tp_setattr */
-	0,																									/* tp_compare */
-	0,																									/* tp_repr */
-	0,																									/* tp_as_number */
-	0,																									/* tp_as_sequence */
-	0,																									/* tp_as_mapping */
-	0,																									/* tp_hash */
-	0,																									/* tp_call */
-	0,																									/* tp_str */
-	0,																									/* tp_getattro */
-	0,																									/* tp_setattro */
-	0,																									/* tp_as_buffer */
-	Py_TPFLAGS_DEFAULT,																	/* tp_flags */
-	"Sellmeier class",																	/* tp_doc */
-	0,																									/* tp_traverse */
-	0,																									/* tp_clear */
-	0,																									/* tp_richcompare */
-	0,																									/* tp_weaklistoffset */
-	0,																									/* tp_iter */
-	0,																									/* tp_iternext */
-	Sellmeier_wrapper_type_methods,											/* tp_methods */
-	0,																									/* tp_members */
-	0,																									/* tp_getset */
-	0,																									/* tp_base */
-	0,																									/* tp_dict */
-	0,																									/* tp_descr_get */
-	0,																									/* tp_descr_set */
-	0,																									/* tp_dictoffset */
-	(initproc)init_Sellmeier_wrapper,										/* tp_init */
-	0,																									/* tp_alloc */
-	new_Sellmeier_wrapper,															/* tp_new */
+	PyVarObject_HEAD_INIT(NULL, 0)
+	"abeles.Sellmeier",										/* tp_name */
+	sizeof(Sellmeier_wrapper_object),						/* tp_basicsize */
+	0,														/* tp_itemsize */
+	(destructor)dealloc_Sellmeier_wrapper,					/* tp_dealloc */
+	0,														/* tp_vectorcall_offset */
+	0,														/* tp_getattr */
+	0,														/* tp_setattr */
+	0,														/* tp_async */
+	0,														/* tp_repr */
+	0,														/* tp_as_number */
+	0,														/* tp_as_sequence */
+	0,														/* tp_as_mapping */
+	0,														/* tp_hash */
+	0,														/* tp_call */
+	0,														/* tp_str */
+	0,														/* tp_getattro */
+	0,														/* tp_setattro */
+	0,														/* tp_as_buffer */
+	Py_TPFLAGS_DEFAULT,										/* tp_flags */
+	"Sellmeier class",										/* tp_doc */
+	0,														/* tp_traverse */
+	0,														/* tp_clear */
+	0,														/* tp_richcompare */
+	0,														/* tp_weaklistoffset */
+	0,														/* tp_iter */
+	0,														/* tp_iternext */
+	Sellmeier_wrapper_type_methods,							/* tp_methods */
+	0,														/* tp_members */
+	0,														/* tp_getset */
+	0,														/* tp_base */
+	0,														/* tp_dict */
+	0,														/* tp_descr_get */
+	0,														/* tp_descr_set */
+	0,														/* tp_dictoffset */
+	(initproc)init_Sellmeier_wrapper,						/* tp_init */
+	0,														/* tp_alloc */
+	new_Sellmeier_wrapper,									/* tp_new */
 };
 
 

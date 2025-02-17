@@ -105,7 +105,7 @@ static void dealloc_constant_mixture_wrapper(constant_mixture_wrapper_object *se
 {
 	del_constant_mixture(self->dispersion);
 
-	self->ob_type->tp_free((PyObject*)self);
+	self->ob_base.ob_type->tp_free((PyObject*)self);
 }
 
 
@@ -378,45 +378,44 @@ static PyMethodDef constant_mixture_wrapper_type_methods[] =
 
 
 PyTypeObject constant_mixture_wrapper_type = {
-	PyObject_HEAD_INIT(NULL)
-	0,																									/* ob_size */
-	"abeles.constant_mixture",													/* tp_name */
-	sizeof(constant_mixture_wrapper_object),						/* tp_basicsize */
-	0,																									/* tp_itemsize */
-	(destructor)dealloc_constant_mixture_wrapper,				/* tp_dealloc */
-	0,																									/* tp_print */
-	0,																									/* tp_getattr */
-	0,																									/* tp_setattr */
-	0,																									/* tp_compare */
-	0,																									/* tp_repr */
-	0,																									/* tp_as_number */
-	0,																									/* tp_as_sequence */
-	0,																									/* tp_as_mapping */
-	0,																									/* tp_hash */
-	0,																									/* tp_call */
-	0,																									/* tp_str */
-	0,																									/* tp_getattro */
-	0,																									/* tp_setattro */
-	0,																									/* tp_as_buffer */
-	Py_TPFLAGS_DEFAULT,																	/* tp_flags */
-	"constant_mixture class",														/* tp_doc */
-	0,																									/* tp_traverse */
-	0,																									/* tp_clear */
-	0,																									/* tp_richcompare */
-	0,																									/* tp_weaklistoffset */
-	0,																									/* tp_iter */
-	0,																									/* tp_iternext */
-	constant_mixture_wrapper_type_methods,							/* tp_methods */
-	0,																									/* tp_members */
-	0,																									/* tp_getset */
-	0,																									/* tp_base */
-	0,																									/* tp_dict */
-	0,																									/* tp_descr_get */
-	0,																									/* tp_descr_set */
-	0,																									/* tp_dictoffset */
-	(initproc)init_constant_mixture_wrapper,						/* tp_init */
-	0,																									/* tp_alloc */
-	new_constant_mixture_wrapper,												/* tp_new */
+	PyVarObject_HEAD_INIT(NULL, 0)
+	"abeles.constant_mixture",								/* tp_name */
+	sizeof(constant_mixture_wrapper_object),				/* tp_basicsize */
+	0,														/* tp_itemsize */
+	(destructor)dealloc_constant_mixture_wrapper,			/* tp_dealloc */
+	0,														/* tp_vectorcall_offset */
+	0,														/* tp_getattr */
+	0,														/* tp_setattr */
+	0,														/* tp_async */
+	0,														/* tp_repr */
+	0,														/* tp_as_number */
+	0,														/* tp_as_sequence */
+	0,														/* tp_as_mapping */
+	0,														/* tp_hash */
+	0,														/* tp_call */
+	0,														/* tp_str */
+	0,														/* tp_getattro */
+	0,														/* tp_setattro */
+	0,														/* tp_as_buffer */
+	Py_TPFLAGS_DEFAULT,										/* tp_flags */
+	"constant_mixture class",								/* tp_doc */
+	0,														/* tp_traverse */
+	0,														/* tp_clear */
+	0,														/* tp_richcompare */
+	0,														/* tp_weaklistoffset */
+	0,														/* tp_iter */
+	0,														/* tp_iternext */
+	constant_mixture_wrapper_type_methods,					/* tp_methods */
+	0,														/* tp_members */
+	0,														/* tp_getset */
+	0,														/* tp_base */
+	0,														/* tp_dict */
+	0,														/* tp_descr_get */
+	0,														/* tp_descr_set */
+	0,														/* tp_dictoffset */
+	(initproc)init_constant_mixture_wrapper,				/* tp_init */
+	0,														/* tp_alloc */
+	new_constant_mixture_wrapper,							/* tp_new */
 };
 
 
@@ -486,7 +485,7 @@ static void dealloc_table_mixture_wrapper(table_mixture_wrapper_object *self)
 {
 	if (self->dispersion) del_table_mixture(self->dispersion);
 
-	self->ob_type->tp_free((PyObject*)self);
+	self->ob_base.ob_type->tp_free((PyObject*)self);
 }
 
 
@@ -755,45 +754,44 @@ static PyMethodDef table_mixture_wrapper_type_methods[] =
 
 
 PyTypeObject table_mixture_wrapper_type = {
-	PyObject_HEAD_INIT(NULL)
-	0,																									/* ob_size */
-	"abeles.table_mixture",															/* tp_name */
-	sizeof(table_mixture_wrapper_object),								/* tp_basicsize */
-	0,																									/* tp_itemsize */
-	(destructor)dealloc_table_mixture_wrapper,					/* tp_dealloc */
-	0,																									/* tp_print */
-	0,																									/* tp_getattr */
-	0,																									/* tp_setattr */
-	0,																									/* tp_compare */
-	0,																									/* tp_repr */
-	0,																									/* tp_as_number */
-	0,																									/* tp_as_sequence */
-	0,																									/* tp_as_mapping */
-	0,																									/* tp_hash */
-	0,																									/* tp_call */
-	0,																									/* tp_str */
-	0,																									/* tp_getattro */
-	0,																									/* tp_setattro */
-	0,																									/* tp_as_buffer */
-	Py_TPFLAGS_DEFAULT,																	/* tp_flags */
-	"table_mixture class",															/* tp_doc */
-	0,																									/* tp_traverse */
-	0,																									/* tp_clear */
-	0,																									/* tp_richcompare */
-	0,																									/* tp_weaklistoffset */
-	0,																									/* tp_iter */
-	0,																									/* tp_iternext */
-	table_mixture_wrapper_type_methods,									/* tp_methods */
-	0,																									/* tp_members */
-	0,																									/* tp_getset */
-	0,																									/* tp_base */
-	0,																									/* tp_dict */
-	0,																									/* tp_descr_get */
-	0,																									/* tp_descr_set */
-	0,																									/* tp_dictoffset */
-	(initproc)init_table_mixture_wrapper,								/* tp_init */
-	0,																									/* tp_alloc */
-	new_table_mixture_wrapper,													/* tp_new */
+	PyVarObject_HEAD_INIT(NULL, 0)
+	"abeles.table_mixture",								/* tp_name */
+	sizeof(table_mixture_wrapper_object),				/* tp_basicsize */
+	0,													/* tp_itemsize */
+	(destructor)dealloc_table_mixture_wrapper,			/* tp_dealloc */
+	0,													/* tp_vectorcall_offset */
+	0,													/* tp_getattr */
+	0,													/* tp_setattr */
+	0,													/* tp_async */
+	0,													/* tp_repr */
+	0,													/* tp_as_number */
+	0,													/* tp_as_sequence */
+	0,													/* tp_as_mapping */
+	0,													/* tp_hash */
+	0,													/* tp_call */
+	0,													/* tp_str */
+	0,													/* tp_getattro */
+	0,													/* tp_setattro */
+	0,													/* tp_as_buffer */
+	Py_TPFLAGS_DEFAULT,									/* tp_flags */
+	"table_mixture class",								/* tp_doc */
+	0,													/* tp_traverse */
+	0,													/* tp_clear */
+	0,													/* tp_richcompare */
+	0,													/* tp_weaklistoffset */
+	0,													/* tp_iter */
+	0,													/* tp_iternext */
+	table_mixture_wrapper_type_methods,					/* tp_methods */
+	0,													/* tp_members */
+	0,													/* tp_getset */
+	0,													/* tp_base */
+	0,													/* tp_dict */
+	0,													/* tp_descr_get */
+	0,													/* tp_descr_set */
+	0,													/* tp_dictoffset */
+	(initproc)init_table_mixture_wrapper,				/* tp_init */
+	0,													/* tp_alloc */
+	new_table_mixture_wrapper,							/* tp_new */
 };
 
 
@@ -858,7 +856,7 @@ static void dealloc_Cauchy_mixture_wrapper(Cauchy_mixture_wrapper_object *self)
 {
 	if (self->dispersion) del_Cauchy_mixture(self->dispersion);
 
-	self->ob_type->tp_free((PyObject*)self);
+	self->ob_base.ob_type->tp_free((PyObject*)self);
 }
 
 
@@ -1100,45 +1098,44 @@ static PyMethodDef Cauchy_mixture_wrapper_type_methods[] =
 
 
 PyTypeObject Cauchy_mixture_wrapper_type = {
-	PyObject_HEAD_INIT(NULL)
-	0,																									/* ob_size */
-	"abeles.Cauchy_mixture",														/* tp_name */
-	sizeof(Cauchy_mixture_wrapper_object),							/* tp_basicsize */
-	0,																									/* tp_itemsize */
-	(destructor)dealloc_Cauchy_mixture_wrapper,					/* tp_dealloc */
-	0,																									/* tp_print */
-	0,																									/* tp_getattr */
-	0,																									/* tp_setattr */
-	0,																									/* tp_compare */
-	0,																									/* tp_repr */
-	0,																									/* tp_as_number */
-	0,																									/* tp_as_sequence */
-	0,																									/* tp_as_mapping */
-	0,																									/* tp_hash */
-	0,																									/* tp_call */
-	0,																									/* tp_str */
-	0,																									/* tp_getattro */
-	0,																									/* tp_setattro */
-	0,																									/* tp_as_buffer */
-	Py_TPFLAGS_DEFAULT,																	/* tp_flags */
-	"Cauchy_mixture class",															/* tp_doc */
-	0,																									/* tp_traverse */
-	0,																									/* tp_clear */
-	0,																									/* tp_richcompare */
-	0,																									/* tp_weaklistoffset */
-	0,																									/* tp_iter */
-	0,																									/* tp_iternext */
-	Cauchy_mixture_wrapper_type_methods,								/* tp_methods */
-	0,																									/* tp_members */
-	0,																									/* tp_getset */
-	0,																									/* tp_base */
-	0,																									/* tp_dict */
-	0,																									/* tp_descr_get */
-	0,																									/* tp_descr_set */
-	0,																									/* tp_dictoffset */
-	(initproc)init_Cauchy_mixture_wrapper,							/* tp_init */
-	0,																									/* tp_alloc */
-	new_Cauchy_mixture_wrapper,													/* tp_new */
+	PyVarObject_HEAD_INIT(NULL, 0)
+	"abeles.Cauchy_mixture",							/* tp_name */
+	sizeof(Cauchy_mixture_wrapper_object),				/* tp_basicsize */
+	0,													/* tp_itemsize */
+	(destructor)dealloc_Cauchy_mixture_wrapper,			/* tp_dealloc */
+	0,													/* tp_vectorcall_offset */
+	0,													/* tp_getattr */
+	0,													/* tp_setattr */
+	0,													/* tp_async */
+	0,													/* tp_repr */
+	0,													/* tp_as_number */
+	0,													/* tp_as_sequence */
+	0,													/* tp_as_mapping */
+	0,													/* tp_hash */
+	0,													/* tp_call */
+	0,													/* tp_str */
+	0,													/* tp_getattro */
+	0,													/* tp_setattro */
+	0,													/* tp_as_buffer */
+	Py_TPFLAGS_DEFAULT,									/* tp_flags */
+	"Cauchy_mixture class",								/* tp_doc */
+	0,													/* tp_traverse */
+	0,													/* tp_clear */
+	0,													/* tp_richcompare */
+	0,													/* tp_weaklistoffset */
+	0,													/* tp_iter */
+	0,													/* tp_iternext */
+	Cauchy_mixture_wrapper_type_methods,				/* tp_methods */
+	0,													/* tp_members */
+	0,													/* tp_getset */
+	0,													/* tp_base */
+	0,													/* tp_dict */
+	0,													/* tp_descr_get */
+	0,													/* tp_descr_set */
+	0,													/* tp_dictoffset */
+	(initproc)init_Cauchy_mixture_wrapper,				/* tp_init */
+	0,													/* tp_alloc */
+	new_Cauchy_mixture_wrapper,							/* tp_new */
 };
 
 
@@ -1203,7 +1200,7 @@ static void dealloc_Sellmeier_mixture_wrapper(Sellmeier_mixture_wrapper_object *
 {
 	if (self->dispersion) del_Sellmeier_mixture(self->dispersion);
 
-	self->ob_type->tp_free((PyObject*)self);
+	self->ob_base.ob_type->tp_free((PyObject*)self);
 }
 
 
@@ -1445,45 +1442,44 @@ static PyMethodDef Sellmeier_mixture_wrapper_type_methods[] =
 
 
 PyTypeObject Sellmeier_mixture_wrapper_type = {
-	PyObject_HEAD_INIT(NULL)
-	0,																									/* ob_size */
-	"abeles.Sellmeier_mixture",													/* tp_name */
-	sizeof(Sellmeier_mixture_wrapper_object),						/* tp_basicsize */
-	0,																									/* tp_itemsize */
-	(destructor)dealloc_Sellmeier_mixture_wrapper,			/* tp_dealloc */
-	0,																									/* tp_print */
-	0,																									/* tp_getattr */
-	0,																									/* tp_setattr */
-	0,																									/* tp_compare */
-	0,																									/* tp_repr */
-	0,																									/* tp_as_number */
-	0,																									/* tp_as_sequence */
-	0,																									/* tp_as_mapping */
-	0,																									/* tp_hash */
-	0,																									/* tp_call */
-	0,																									/* tp_str */
-	0,																									/* tp_getattro */
-	0,																									/* tp_setattro */
-	0,																									/* tp_as_buffer */
-	Py_TPFLAGS_DEFAULT,																	/* tp_flags */
-	"Sellmeier_mixture class",													/* tp_doc */
-	0,																									/* tp_traverse */
-	0,																									/* tp_clear */
-	0,																									/* tp_richcompare */
-	0,																									/* tp_weaklistoffset */
-	0,																									/* tp_iter */
-	0,																									/* tp_iternext */
-	Sellmeier_mixture_wrapper_type_methods,							/* tp_methods */
-	0,																									/* tp_members */
-	0,																									/* tp_getset */
-	0,																									/* tp_base */
-	0,																									/* tp_dict */
-	0,																									/* tp_descr_get */
-	0,																									/* tp_descr_set */
-	0,																									/* tp_dictoffset */
-	(initproc)init_Sellmeier_mixture_wrapper,						/* tp_init */
-	0,																									/* tp_alloc */
-	new_Sellmeier_mixture_wrapper,											/* tp_new */
+	PyVarObject_HEAD_INIT(NULL, 0)
+	"abeles.Sellmeier_mixture",						/* tp_name */
+	sizeof(Sellmeier_mixture_wrapper_object),		/* tp_basicsize */
+	0,												/* tp_itemsize */
+	(destructor)dealloc_Sellmeier_mixture_wrapper,	/* tp_dealloc */
+	0,												/* tp_vectorcall_offset */
+	0,												/* tp_getattr */
+	0,												/* tp_setattr */
+	0,												/* tp_async */
+	0,												/* tp_repr */
+	0,												/* tp_as_number */
+	0,												/* tp_as_sequence */
+	0,												/* tp_as_mapping */
+	0,												/* tp_hash */
+	0,												/* tp_call */
+	0,												/* tp_str */
+	0,												/* tp_getattro */
+	0,												/* tp_setattro */
+	0,												/* tp_as_buffer */
+	Py_TPFLAGS_DEFAULT,								/* tp_flags */
+	"Sellmeier_mixture class",						/* tp_doc */
+	0,												/* tp_traverse */
+	0,												/* tp_clear */
+	0,												/* tp_richcompare */
+	0,												/* tp_weaklistoffset */
+	0,												/* tp_iter */
+	0,												/* tp_iternext */
+	Sellmeier_mixture_wrapper_type_methods,			/* tp_methods */
+	0,												/* tp_members */
+	0,												/* tp_getset */
+	0,												/* tp_base */
+	0,												/* tp_dict */
+	0,												/* tp_descr_get */
+	0,												/* tp_descr_set */
+	0,												/* tp_dictoffset */
+	(initproc)init_Sellmeier_mixture_wrapper,		/* tp_init */
+	0,												/* tp_alloc */
+	new_Sellmeier_mixture_wrapper,					/* tp_new */
 };
 
 

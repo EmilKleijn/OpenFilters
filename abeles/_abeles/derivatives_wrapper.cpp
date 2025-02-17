@@ -196,7 +196,7 @@ static void dealloc_pre_and_post_matrices_wrapper(pre_and_post_matrices_wrapper_
 
 	Py_XDECREF(self->wvls);
 
-	self->ob_type->tp_free((PyObject*)self);
+	self->ob_base.ob_type->tp_free((PyObject*)self);
 }
 
 
@@ -333,7 +333,7 @@ static PyObject * pre_and_post_matrices_wrapper_subscript(pre_and_post_matrices_
 	}
 	else if (PySlice_Check(item))
 	{
-		if (PySlice_GetIndicesEx((PySliceObject*)item, self->pre_and_post_matrices->length, &start, &stop, &step, &slicelength) < 0)
+		if (PySlice_GetIndicesEx((PyObject*)item, self->pre_and_post_matrices->length, &start, &stop, &step, &slicelength) < 0)
 			return NULL;
 
 		if (slicelength <= 0)
@@ -391,45 +391,44 @@ static PyMappingMethods pre_and_post_matrices_wrapper_as_mapping = {
 
 
 PyTypeObject pre_and_post_matrices_wrapper_type = {
-	PyObject_HEAD_INIT(NULL)
-	0,																									/* ob_size */
-	"abeles.pre_and_post_matrices",											/* tp_name */
+	PyVarObject_HEAD_INIT(NULL, 0)
+	"abeles.pre_and_post_matrices",								/* tp_name */
 	sizeof(pre_and_post_matrices_wrapper_object),				/* tp_basicsize */
-	0,																									/* tp_itemsize */
-	(destructor)dealloc_pre_and_post_matrices_wrapper,	/* tp_dealloc */
-	0,																									/* tp_print */
-	0,																									/* tp_getattr */
-	0,																									/* tp_setattr */
-	0,																									/* tp_compare */
-	0,																									/* tp_repr */
-	0,																									/* tp_as_number */
+	0,															/* tp_itemsize */
+	(destructor)dealloc_pre_and_post_matrices_wrapper,			/* tp_dealloc */
+	0,															/* tp_vectorcall_offset */
+	0,															/* tp_getattr */
+	0,															/* tp_setattr */
+	0,															/* tp_async */
+	0,															/* tp_repr */
+	0,															/* tp_as_number */
 	&pre_and_post_matrices_wrapper_as_sequence,					/* tp_as_sequence */
 	&pre_and_post_matrices_wrapper_as_mapping,					/* tp_as_mapping */
-	0,																									/* tp_hash */
-	0,																									/* tp_call */
-	0,																									/* tp_str */
-	0,																									/* tp_getattro */
-	0,																									/* tp_setattro */
-	0,																									/* tp_as_buffer */
-	Py_TPFLAGS_DEFAULT,																	/* tp_flags */
-	"pre_and_post_matrices class",											/* tp_doc */
-	0,																									/* tp_traverse */
-	0,																									/* tp_clear */
-	0,																									/* tp_richcompare */
-	0,																									/* tp_weaklistoffset */
-	0,																									/* tp_iter */
-	0,																									/* tp_iternext */
+	0,															/* tp_hash */
+	0,															/* tp_call */
+	0,															/* tp_str */
+	0,															/* tp_getattro */
+	0,															/* tp_setattro */
+	0,															/* tp_as_buffer */
+	Py_TPFLAGS_DEFAULT,											/* tp_flags */
+	"pre_and_post_matrices class",								/* tp_doc */
+	0,															/* tp_traverse */
+	0,															/* tp_clear */
+	0,															/* tp_richcompare */
+	0,															/* tp_weaklistoffset */
+	0,															/* tp_iter */
+	0,															/* tp_iternext */
 	pre_and_post_matrices_wrapper_type_methods,					/* tp_methods */
-	0,																									/* tp_members */
-	0,																									/* tp_getset */
-	0,																									/* tp_base */
-	0,																									/* tp_dict */
-	0,																									/* tp_descr_get */
-	0,																									/* tp_descr_set */
-	0,																									/* tp_dictoffset */
+	0,															/* tp_members */
+	0,															/* tp_getset */
+	0,															/* tp_base */
+	0,															/* tp_dict */
+	0,															/* tp_descr_get */
+	0,															/* tp_descr_set */
+	0,															/* tp_dictoffset */
 	(initproc)init_pre_and_post_matrices_wrapper,				/* tp_init */
-	0,																									/* tp_alloc */
-	new_pre_and_post_matrices_wrapper,									/* tp_new */
+	0,															/* tp_alloc */
+	new_pre_and_post_matrices_wrapper,							/* tp_new */
 };
 
 
@@ -694,45 +693,44 @@ static PyMethodDef dM_wrapper_type_methods[] =
 
 
 PyTypeObject dM_wrapper_type = {
-	PyObject_HEAD_INIT(NULL)
-	0,																									/* ob_size */
-	"abeles.dM",																				/* tp_name */
-	sizeof(matrices_wrapper_object),										/* tp_basicsize */
-	0,																									/* tp_itemsize */
-	0,																									/* tp_dealloc */
-	0,																									/* tp_print */
-	0,																									/* tp_getattr */
-	0,																									/* tp_setattr */
-	0,																									/* tp_compare */
-	0,																									/* tp_repr */
-	0,																									/* tp_as_number */
-	0,																									/* tp_as_sequence */
-	0,																									/* tp_as_mapping */
-	0,																									/* tp_hash */
-	0,																									/* tp_call */
-	0,																									/* tp_str */
-	0,																									/* tp_getattro */
-	0,																									/* tp_setattro */
-	0,																									/* tp_as_buffer */
-	Py_TPFLAGS_DEFAULT,																	/* tp_flags */
-	"dM class",																					/* tp_doc */
-	0,																									/* tp_traverse */
-	0,																									/* tp_clear */
-	0,																									/* tp_richcompare */
-	0,																									/* tp_weaklistoffset */
-	0,																									/* tp_iter */
-	0,																									/* tp_iternext */
-	dM_wrapper_type_methods,														/* tp_methods */
-	0,																									/* tp_members */
-	0,																									/* tp_getset */
-	&matrices_wrapper_type,															/* tp_base */
-	0,																									/* tp_dict */
-	0,																									/* tp_descr_get */
-	0,																									/* tp_descr_set */
-	0,																									/* tp_dictoffset */
-	0,																									/* tp_init */
-	0,																									/* tp_alloc */
-	0,																									/* tp_new */
+	PyVarObject_HEAD_INIT(NULL, 0)
+	"abeles.dM",							/* tp_name */
+	sizeof(matrices_wrapper_object),		/* tp_basicsize */
+	0,										/* tp_itemsize */
+	0,										/* tp_dealloc */
+	0,										/* tp_vectorcall_offset */
+	0,										/* tp_getattr */
+	0,										/* tp_setattr */
+	0,										/* tp_async */
+	0,										/* tp_repr */
+	0,										/* tp_as_number */
+	0,										/* tp_as_sequence */
+	0,										/* tp_as_mapping */
+	0,										/* tp_hash */
+	0,										/* tp_call */
+	0,										/* tp_str */
+	0,										/* tp_getattro */
+	0,										/* tp_setattro */
+	0,										/* tp_as_buffer */
+	Py_TPFLAGS_DEFAULT,						/* tp_flags */
+	"dM class",								/* tp_doc */
+	0,										/* tp_traverse */
+	0,										/* tp_clear */
+	0,										/* tp_richcompare */
+	0,										/* tp_weaklistoffset */
+	0,										/* tp_iter */
+	0,										/* tp_iternext */
+	dM_wrapper_type_methods,				/* tp_methods */
+	0,										/* tp_members */
+	0,										/* tp_getset */
+	&matrices_wrapper_type,					/* tp_base */
+	0,										/* tp_dict */
+	0,										/* tp_descr_get */
+	0,										/* tp_descr_set */
+	0,										/* tp_dictoffset */
+	0,										/* tp_init */
+	0,										/* tp_alloc */
+	0,										/* tp_new */
 };
 
 
@@ -809,7 +807,7 @@ static void dealloc_psi_matrices_wrapper(psi_matrices_wrapper_object *self)
 
 	Py_XDECREF(self->wvls);
 
-	self->ob_type->tp_free((PyObject*)self);
+	self->ob_base.ob_type->tp_free((PyObject*)self);
 }
 
 
@@ -926,45 +924,44 @@ static PyMethodDef psi_matrices_wrapper_type_methods[] =
 
 
 PyTypeObject psi_matrices_wrapper_type = {
-	PyObject_HEAD_INIT(NULL)
-	0,																									/* ob_size */
-	"abeles.psi_matrices",															/* tp_name */
-	sizeof(psi_matrices_wrapper_object),								/* tp_basicsize */
-	0,																									/* tp_itemsize */
-	(destructor)dealloc_psi_matrices_wrapper,						/* tp_dealloc */
-	0,																									/* tp_print */
-	0,																									/* tp_getattr */
-	0,																									/* tp_setattr */
-	0,																									/* tp_compare */
-	0,																									/* tp_repr */
-	0,																									/* tp_as_number */
-	0,																									/* tp_as_sequence */
-	0,																									/* tp_as_mapping */
-	0,																									/* tp_hash */
-	0,																									/* tp_call */
-	0,																									/* tp_str */
-	0,																									/* tp_getattro */
-	0,																									/* tp_setattro */
-	0,																									/* tp_as_buffer */
-	Py_TPFLAGS_DEFAULT,																	/* tp_flags */
-	"psi_matrices class",																/* tp_doc */
-	0,																									/* tp_traverse */
-	0,																									/* tp_clear */
-	0,																									/* tp_richcompare */
-	0,																									/* tp_weaklistoffset */
-	0,																									/* tp_iter */
-	0,																									/* tp_iternext */
-	psi_matrices_wrapper_type_methods,									/* tp_methods */
-	0,																									/* tp_members */
-	0,																									/* tp_getset */
-	0,																									/* tp_base */
-	0,																									/* tp_dict */
-	0,																									/* tp_descr_get */
-	0,																									/* tp_descr_set */
-	0,																									/* tp_dictoffset */
-	(initproc)init_psi_matrices_wrapper,								/* tp_init */
-	0,																									/* tp_alloc */
-	new_psi_matrices_wrapper,														/* tp_new */
+	PyVarObject_HEAD_INIT(NULL, 0)
+	"abeles.psi_matrices",							/* tp_name */
+	sizeof(psi_matrices_wrapper_object),			/* tp_basicsize */
+	0,												/* tp_itemsize */
+	(destructor)dealloc_psi_matrices_wrapper,		/* tp_dealloc */
+	0,												/* tp_vectorcall_offset */
+	0,												/* tp_getattr */
+	0,												/* tp_setattr */
+	0,												/* tp_async */
+	0,												/* tp_repr */
+	0,												/* tp_as_number */
+	0,												/* tp_as_sequence */
+	0,												/* tp_as_mapping */
+	0,												/* tp_hash */
+	0,												/* tp_call */
+	0,												/* tp_str */
+	0,												/* tp_getattro */
+	0,												/* tp_setattro */
+	0,												/* tp_as_buffer */
+	Py_TPFLAGS_DEFAULT,								/* tp_flags */
+	"psi_matrices class",							/* tp_doc */
+	0,												/* tp_traverse */
+	0,												/* tp_clear */
+	0,												/* tp_richcompare */
+	0,												/* tp_weaklistoffset */
+	0,												/* tp_iter */
+	0,												/* tp_iternext */
+	psi_matrices_wrapper_type_methods,				/* tp_methods */
+	0,												/* tp_members */
+	0,												/* tp_getset */
+	0,												/* tp_base */
+	0,												/* tp_dict */
+	0,												/* tp_descr_get */
+	0,												/* tp_descr_set */
+	0,												/* tp_dictoffset */
+	(initproc)init_psi_matrices_wrapper,			/* tp_init */
+	0,												/* tp_alloc */
+	new_psi_matrices_wrapper,						/* tp_new */
 };
 
 
@@ -1057,45 +1054,44 @@ static PyMethodDef dr_and_dt_wrapper_type_methods[] =
 
 
 PyTypeObject dr_and_dt_wrapper_type = {
-	PyObject_HEAD_INIT(NULL)
-	0,																									/* ob_size */
-	"abeles.dr_and_dt",																	/* tp_name */
-	0,																									/* tp_basicsize */
-	0,																									/* tp_itemsize */
-	0,																									/* tp_dealloc */
-	0,																									/* tp_print */
-	0,																									/* tp_getattr */
-	0,																									/* tp_setattr */
-	0,																									/* tp_compare */
-	0,																									/* tp_repr */
-	0,																									/* tp_as_number */
-	0,																									/* tp_as_sequence */
-	0,																									/* tp_as_mapping */
-	0,																									/* tp_hash */
-	0,																									/* tp_call */
-	0,																									/* tp_str */
-	0,																									/* tp_getattro */
-	0,																									/* tp_setattro */
-	0,																									/* tp_as_buffer */
-	Py_TPFLAGS_DEFAULT,																	/* tp_flags */
-	"dr_and_dt class",																	/* tp_doc */
-	0,																									/* tp_traverse */
-	0,																									/* tp_clear */
-	0,																									/* tp_richcompare */
-	0,																									/* tp_weaklistoffset */
-	0,																									/* tp_iter */
-	0,																									/* tp_iternext */
-	dr_and_dt_wrapper_type_methods,											/* tp_methods */
-	0,																									/* tp_members */
-	0,																									/* tp_getset */
-	&r_and_t_wrapper_type,															/* tp_base */
-	0,																									/* tp_dict */
-	0,																									/* tp_descr_get */
-	0,																									/* tp_descr_set */
-	0,																									/* tp_dictoffset */
-	0,																									/* tp_init */
-	0,																									/* tp_alloc */
-	0,																									/* tp_new */
+	PyVarObject_HEAD_INIT(NULL, 0)
+	"abeles.dr_and_dt",							/* tp_name */
+	0,											/* tp_basicsize */
+	0,											/* tp_itemsize */
+	0,											/* tp_dealloc */
+	0,											/* tp_vectorcall_offset */
+	0,											/* tp_getattr */
+	0,											/* tp_setattr */
+	0,											/* tp_async */
+	0,											/* tp_repr */
+	0,											/* tp_as_number */
+	0,											/* tp_as_sequence */
+	0,											/* tp_as_mapping */
+	0,											/* tp_hash */
+	0,											/* tp_call */
+	0,											/* tp_str */
+	0,											/* tp_getattro */
+	0,											/* tp_setattro */
+	0,											/* tp_as_buffer */
+	Py_TPFLAGS_DEFAULT,							/* tp_flags */
+	"dr_and_dt class",							/* tp_doc */
+	0,											/* tp_traverse */
+	0,											/* tp_clear */
+	0,											/* tp_richcompare */
+	0,											/* tp_weaklistoffset */
+	0,											/* tp_iter */
+	0,											/* tp_iternext */
+	dr_and_dt_wrapper_type_methods,				/* tp_methods */
+	0,											/* tp_members */
+	0,											/* tp_getset */
+	&r_and_t_wrapper_type,						/* tp_base */
+	0,											/* tp_dict */
+	0,											/* tp_descr_get */
+	0,											/* tp_descr_set */
+	0,											/* tp_dictoffset */
+	0,											/* tp_init */
+	0,											/* tp_alloc */
+	0,											/* tp_new */
 };
 
 
@@ -1310,45 +1306,44 @@ static PyMethodDef dR_wrapper_type_methods[] =
 
 
 PyTypeObject dR_wrapper_type = {
-	PyObject_HEAD_INIT(NULL)
-	0,																									/* ob_size */
-	"abeles.dR",																				/* tp_name */
-	0,																									/* tp_basicsize */
-	0,																									/* tp_itemsize */
-	0,																									/* tp_dealloc */
-	0,																									/* tp_print */
-	0,																									/* tp_getattr */
-	0,																									/* tp_setattr */
-	0,																									/* tp_compare */
-	0,																									/* tp_repr */
-	0,																									/* tp_as_number */
-	0,																									/* tp_as_sequence */
-	0,																									/* tp_as_mapping */
-	0,																									/* tp_hash */
-	0,																									/* tp_call */
-	0,																									/* tp_str */
-	0,																									/* tp_getattro */
-	0,																									/* tp_setattro */
-	0,																									/* tp_as_buffer */
-	Py_TPFLAGS_DEFAULT,																	/* tp_flags */
-	"dR class",																					/* tp_doc */
-	0,																									/* tp_traverse */
-	0,																									/* tp_clear */
-	0,																									/* tp_richcompare */
-	0,																									/* tp_weaklistoffset */
-	0,																									/* tp_iter */
-	0,																									/* tp_iternext */
-	dR_wrapper_type_methods,														/* tp_methods */
-	0,																									/* tp_members */
-	0,																									/* tp_getset */
-	&spectrum_wrapper_type,															/* tp_base */
-	0,																									/* tp_dict */
-	0,																									/* tp_descr_get */
-	0,																									/* tp_descr_set */
-	0,																									/* tp_dictoffset */
-	0,																									/* tp_init */
-	0,																									/* tp_alloc */
-	0,																									/* tp_new */
+	PyVarObject_HEAD_INIT(NULL, 0)
+	"abeles.dR",							/* tp_name */
+	0,										/* tp_basicsize */
+	0,										/* tp_itemsize */
+	0,										/* tp_dealloc */
+	0,										/* tp_vectorcall_offset */
+	0,										/* tp_getattr */
+	0,										/* tp_setattr */
+	0,										/* tp_async */
+	0,										/* tp_repr */
+	0,										/* tp_as_number */
+	0,										/* tp_as_sequence */
+	0,										/* tp_as_mapping */
+	0,										/* tp_hash */
+	0,										/* tp_call */
+	0,										/* tp_str */
+	0,										/* tp_getattro */
+	0,										/* tp_setattro */
+	0,										/* tp_as_buffer */
+	Py_TPFLAGS_DEFAULT,						/* tp_flags */
+	"dR class",								/* tp_doc */
+	0,										/* tp_traverse */
+	0,										/* tp_clear */
+	0,										/* tp_richcompare */
+	0,										/* tp_weaklistoffset */
+	0,										/* tp_iter */
+	0,										/* tp_iternext */
+	dR_wrapper_type_methods,				/* tp_methods */
+	0,										/* tp_members */
+	0,										/* tp_getset */
+	&spectrum_wrapper_type,					/* tp_base */
+	0,										/* tp_dict */
+	0,										/* tp_descr_get */
+	0,										/* tp_descr_set */
+	0,										/* tp_dictoffset */
+	0,										/* tp_init */
+	0,										/* tp_alloc */
+	0,										/* tp_new */
 };
 
 
@@ -1575,45 +1570,44 @@ static PyMethodDef dT_wrapper_type_methods[] =
 
 
 PyTypeObject dT_wrapper_type = {
-	PyObject_HEAD_INIT(NULL)
-	0,																									/* ob_size */
-	"abeles.dT",																				/* tp_name */
-	0,																									/* tp_basicsize */
-	0,																									/* tp_itemsize */
-	0,																									/* tp_dealloc */
-	0,																									/* tp_print */
-	0,																									/* tp_getattr */
-	0,																									/* tp_setattr */
-	0,																									/* tp_compare */
-	0,																									/* tp_repr */
-	0,																									/* tp_as_number */
-	0,																									/* tp_as_sequence */
-	0,																									/* tp_as_mapping */
-	0,																									/* tp_hash */
-	0,																									/* tp_call */
-	0,																									/* tp_str */
-	0,																									/* tp_getattro */
-	0,																									/* tp_setattro */
-	0,																									/* tp_as_buffer */
-	Py_TPFLAGS_DEFAULT,																	/* tp_flags */
-	"dT class",																					/* tp_doc */
-	0,																									/* tp_traverse */
-	0,																									/* tp_clear */
-	0,																									/* tp_richcompare */
-	0,																									/* tp_weaklistoffset */
-	0,																									/* tp_iter */
-	0,																									/* tp_iternext */
-	dT_wrapper_type_methods,														/* tp_methods */
-	0,																									/* tp_members */
-	0,																									/* tp_getset */
-	&spectrum_wrapper_type,															/* tp_base */
-	0,																									/* tp_dict */
-	0,																									/* tp_descr_get */
-	0,																									/* tp_descr_set */
-	0,																									/* tp_dictoffset */
-	0,																									/* tp_init */
-	0,																									/* tp_alloc */
-	0,																									/* tp_new */
+	PyVarObject_HEAD_INIT(NULL, 0)
+	"abeles.dT",						/* tp_name */
+	0,									/* tp_basicsize */
+	0,									/* tp_itemsize */
+	0,									/* tp_dealloc */
+	0,									/* tp_vectorcall_offset */
+	0,									/* tp_getattr */
+	0,									/* tp_setattr */
+	0,									/* tp_async */
+	0,									/* tp_repr */
+	0,									/* tp_as_number */
+	0,									/* tp_as_sequence */
+	0,									/* tp_as_mapping */
+	0,									/* tp_hash */
+	0,									/* tp_call */
+	0,									/* tp_str */
+	0,									/* tp_getattro */
+	0,									/* tp_setattro */
+	0,									/* tp_as_buffer */
+	Py_TPFLAGS_DEFAULT,					/* tp_flags */
+	"dT class",							/* tp_doc */
+	0,									/* tp_traverse */
+	0,									/* tp_clear */
+	0,									/* tp_richcompare */
+	0,									/* tp_weaklistoffset */
+	0,									/* tp_iter */
+	0,									/* tp_iternext */
+	dT_wrapper_type_methods,			/* tp_methods */
+	0,									/* tp_members */
+	0,									/* tp_getset */
+	&spectrum_wrapper_type,				/* tp_base */
+	0,									/* tp_dict */
+	0,									/* tp_descr_get */
+	0,									/* tp_descr_set */
+	0,									/* tp_dictoffset */
+	0,									/* tp_init */
+	0,									/* tp_alloc */
+	0,									/* tp_new */
 };
 
 
@@ -1658,45 +1652,44 @@ static PyMethodDef dA_wrapper_type_methods[] =
 
 
 PyTypeObject dA_wrapper_type = {
-	PyObject_HEAD_INIT(NULL)
-	0,																									/* ob_size */
-	"abeles.dA",																				/* tp_name */
-	0,																									/* tp_basicsize */
-	0,																									/* tp_itemsize */
-	0,																									/* tp_dealloc */
-	0,																									/* tp_print */
-	0,																									/* tp_getattr */
-	0,																									/* tp_setattr */
-	0,																									/* tp_compare */
-	0,																									/* tp_repr */
-	0,																									/* tp_as_number */
-	0,																									/* tp_as_sequence */
-	0,																									/* tp_as_mapping */
-	0,																									/* tp_hash */
-	0,																									/* tp_call */
-	0,																									/* tp_str */
-	0,																									/* tp_getattro */
-	0,																									/* tp_setattro */
-	0,																									/* tp_as_buffer */
-	Py_TPFLAGS_DEFAULT,																	/* tp_flags */
-	"dA class",																					/* tp_doc */
-	0,																									/* tp_traverse */
-	0,																									/* tp_clear */
-	0,																									/* tp_richcompare */
-	0,																									/* tp_weaklistoffset */
-	0,																									/* tp_iter */
-	0,																									/* tp_iternext */
-	dA_wrapper_type_methods,														/* tp_methods */
-	0,																									/* tp_members */
-	0,																									/* tp_getset */
-	&spectrum_wrapper_type,															/* tp_base */
-	0,																									/* tp_dict */
-	0,																									/* tp_descr_get */
-	0,																									/* tp_descr_set */
-	0,																									/* tp_dictoffset */
-	0,																									/* tp_init */
-	0,																									/* tp_alloc */
-	0,																									/* tp_new */
+	PyVarObject_HEAD_INIT(NULL, 0)
+	"abeles.dA",							/* tp_name */
+	0,										/* tp_basicsize */
+	0,										/* tp_itemsize */
+	0,										/* tp_dealloc */
+	0,										/* tp_vectorcall_offset */
+	0,										/* tp_getattr */
+	0,										/* tp_setattr */
+	0,										/* tp_async */
+	0,										/* tp_repr */
+	0,										/* tp_as_number */
+	0,										/* tp_as_sequence */
+	0,										/* tp_as_mapping */
+	0,										/* tp_hash */
+	0,										/* tp_call */
+	0,										/* tp_str */
+	0,										/* tp_getattro */
+	0,										/* tp_setattro */
+	0,										/* tp_as_buffer */
+	Py_TPFLAGS_DEFAULT,						/* tp_flags */
+	"dA class",								/* tp_doc */
+	0,										/* tp_traverse */
+	0,										/* tp_clear */
+	0,										/* tp_richcompare */
+	0,										/* tp_weaklistoffset */
+	0,										/* tp_iter */
+	0,										/* tp_iternext */
+	dA_wrapper_type_methods,				/* tp_methods */
+	0,										/* tp_members */
+	0,										/* tp_getset */
+	&spectrum_wrapper_type,					/* tp_base */
+	0,										/* tp_dict */
+	0,										/* tp_descr_get */
+	0,										/* tp_descr_set */
+	0,										/* tp_dictoffset */
+	0,										/* tp_init */
+	0,										/* tp_alloc */
+	0,										/* tp_new */
 };
 
 
@@ -1827,45 +1820,44 @@ static PyMethodDef dphase_wrapper_type_methods[] =
 
 
 PyTypeObject dphase_wrapper_type = {
-	PyObject_HEAD_INIT(NULL)
-	0,																									/* ob_size */
-	"abeles.dphase",																		/* tp_name */
-	sizeof(spectrum_wrapper_object),										/* tp_basicsize */
-	0,																									/* tp_itemsize */
-	0,																									/* tp_dealloc */
-	0,																									/* tp_print */
-	0,																									/* tp_getattr */
-	0,																									/* tp_setattr */
-	0,																									/* tp_compare */
-	0,																									/* tp_repr */
-	0,																									/* tp_as_number */
-	0,																									/* tp_as_sequence */
-	0,																									/* tp_as_mapping */
-	0,																									/* tp_hash */
-	0,																									/* tp_call */
-	0,																									/* tp_str */
-	0,																									/* tp_getattro */
-	0,																									/* tp_setattro */
-	0,																									/* tp_as_buffer */
-	Py_TPFLAGS_DEFAULT,																	/* tp_flags */
-	"dphase class",																			/* tp_doc */
-	0,																									/* tp_traverse */
-	0,																									/* tp_clear */
-	0,																									/* tp_richcompare */
-	0,																									/* tp_weaklistoffset */
-	0,																									/* tp_iter */
-	0,																									/* tp_iternext */
-	dphase_wrapper_type_methods,												/* tp_methods */
-	0,																									/* tp_members */
-	0,																									/* tp_getset */
-	&spectrum_wrapper_type,															/* tp_base */
-	0,																									/* tp_dict */
-	0,																									/* tp_descr_get */
-	0,																									/* tp_descr_set */
-	0,																									/* tp_dictoffset */
-	0,																									/* tp_init */
-	0,																									/* tp_alloc */
-	0,																									/* tp_new */
+	PyVarObject_HEAD_INIT(NULL, 0)
+	"abeles.dphase",							/* tp_name */
+	sizeof(spectrum_wrapper_object),			/* tp_basicsize */
+	0,											/* tp_itemsize */
+	0,											/* tp_dealloc */
+	0,											/* tp_vectorcall_offset */
+	0,											/* tp_getattr */
+	0,											/* tp_setattr */
+	0,											/* tp_async */
+	0,											/* tp_repr */
+	0,											/* tp_as_number */
+	0,											/* tp_as_sequence */
+	0,											/* tp_as_mapping */
+	0,											/* tp_hash */
+	0,											/* tp_call */
+	0,											/* tp_str */
+	0,											/* tp_getattro */
+	0,											/* tp_setattro */
+	0,											/* tp_as_buffer */
+	Py_TPFLAGS_DEFAULT,							/* tp_flags */
+	"dphase class",								/* tp_doc */
+	0,											/* tp_traverse */
+	0,											/* tp_clear */
+	0,											/* tp_richcompare */
+	0,											/* tp_weaklistoffset */
+	0,											/* tp_iter */
+	0,											/* tp_iternext */
+	dphase_wrapper_type_methods,				/* tp_methods */
+	0,											/* tp_members */
+	0,											/* tp_getset */
+	&spectrum_wrapper_type,						/* tp_base */
+	0,											/* tp_dict */
+	0,											/* tp_descr_get */
+	0,											/* tp_descr_set */
+	0,											/* tp_dictoffset */
+	0,											/* tp_init */
+	0,											/* tp_alloc */
+	0,											/* tp_new */
 };
 
 
@@ -1911,45 +1903,44 @@ static PyMethodDef dGD_wrapper_type_methods[] =
 
 
 PyTypeObject dGD_wrapper_type = {
-	PyObject_HEAD_INIT(NULL)
-	0,																									/* ob_size */
-	"abeles.dGD",																				/* tp_name */
-	sizeof(spectrum_wrapper_object),										/* tp_basicsize */
-	0,																									/* tp_itemsize */
-	0,																									/* tp_dealloc */
-	0,																									/* tp_print */
-	0,																									/* tp_getattr */
-	0,																									/* tp_setattr */
-	0,																									/* tp_compare */
-	0,																									/* tp_repr */
-	0,																									/* tp_as_number */
-	0,																									/* tp_as_sequence */
-	0,																									/* tp_as_mapping */
-	0,																									/* tp_hash */
-	0,																									/* tp_call */
-	0,																									/* tp_str */
-	0,																									/* tp_getattro */
-	0,																									/* tp_setattro */
-	0,																									/* tp_as_buffer */
-	Py_TPFLAGS_DEFAULT,																	/* tp_flags */
-	"dGD class",																				/* tp_doc */
-	0,																									/* tp_traverse */
-	0,																									/* tp_clear */
-	0,																									/* tp_richcompare */
-	0,																									/* tp_weaklistoffset */
-	0,																									/* tp_iter */
-	0,																									/* tp_iternext */
-	dGD_wrapper_type_methods,														/* tp_methods */
-	0,																									/* tp_members */
-	0,																									/* tp_getset */
-	&spectrum_wrapper_type,															/* tp_base */
-	0,																									/* tp_dict */
-	0,																									/* tp_descr_get */
-	0,																									/* tp_descr_set */
-	0,																									/* tp_dictoffset */
-	0,																									/* tp_init */
-	0,																									/* tp_alloc */
-	0,																									/* tp_new */
+	PyVarObject_HEAD_INIT(NULL, 0)
+	"abeles.dGD",								/* tp_name */
+	sizeof(spectrum_wrapper_object),			/* tp_basicsize */
+	0,											/* tp_itemsize */
+	0,											/* tp_dealloc */
+	0,											/* tp_vectorcall_offset */
+	0,											/* tp_getattr */
+	0,											/* tp_setattr */
+	0,											/* tp_async */
+	0,											/* tp_repr */
+	0,											/* tp_as_number */
+	0,											/* tp_as_sequence */
+	0,											/* tp_as_mapping */
+	0,											/* tp_hash */
+	0,											/* tp_call */
+	0,											/* tp_str */
+	0,											/* tp_getattro */
+	0,											/* tp_setattro */
+	0,											/* tp_as_buffer */
+	Py_TPFLAGS_DEFAULT,							/* tp_flags */
+	"dGD class",								/* tp_doc */
+	0,											/* tp_traverse */
+	0,											/* tp_clear */
+	0,											/* tp_richcompare */
+	0,											/* tp_weaklistoffset */
+	0,											/* tp_iter */
+	0,											/* tp_iternext */
+	dGD_wrapper_type_methods,					/* tp_methods */
+	0,											/* tp_members */
+	0,											/* tp_getset */
+	&spectrum_wrapper_type,						/* tp_base */
+	0,											/* tp_dict */
+	0,											/* tp_descr_get */
+	0,											/* tp_descr_set */
+	0,											/* tp_dictoffset */
+	0,											/* tp_init */
+	0,											/* tp_alloc */
+	0,											/* tp_new */
 };
 
 
@@ -1995,45 +1986,44 @@ static PyMethodDef dGDD_wrapper_type_methods[] =
 
 
 PyTypeObject dGDD_wrapper_type = {
-	PyObject_HEAD_INIT(NULL)
-	0,																									/* ob_size */
-	"abeles.dGDD",																			/* tp_name */
-	sizeof(spectrum_wrapper_object),										/* tp_basicsize */
-	0,																									/* tp_itemsize */
-	0,																									/* tp_dealloc */
-	0,																									/* tp_print */
-	0,																									/* tp_getattr */
-	0,																									/* tp_setattr */
-	0,																									/* tp_compare */
-	0,																									/* tp_repr */
-	0,																									/* tp_as_number */
-	0,																									/* tp_as_sequence */
-	0,																									/* tp_as_mapping */
-	0,																									/* tp_hash */
-	0,																									/* tp_call */
-	0,																									/* tp_str */
-	0,																									/* tp_getattro */
-	0,																									/* tp_setattro */
-	0,																									/* tp_as_buffer */
-	Py_TPFLAGS_DEFAULT,																	/* tp_flags */
-	"dGDD class",																				/* tp_doc */
-	0,																									/* tp_traverse */
-	0,																									/* tp_clear */
-	0,																									/* tp_richcompare */
-	0,																									/* tp_weaklistoffset */
-	0,																									/* tp_iter */
-	0,																									/* tp_iternext */
-	dGDD_wrapper_type_methods,													/* tp_methods */
-	0,																									/* tp_members */
-	0,																									/* tp_getset */
-	&spectrum_wrapper_type,															/* tp_base */
-	0,																									/* tp_dict */
-	0,																									/* tp_descr_get */
-	0,																									/* tp_descr_set */
-	0,																									/* tp_dictoffset */
-	0,																									/* tp_init */
-	0,																									/* tp_alloc */
-	0,																									/* tp_new */
+	PyVarObject_HEAD_INIT(NULL, 0)
+	"abeles.dGDD",										/* tp_name */
+	sizeof(spectrum_wrapper_object),					/* tp_basicsize */
+	0,													/* tp_itemsize */
+	0,													/* tp_dealloc */
+	0,													/* tp_vectorcall_offset */
+	0,													/* tp_getattr */
+	0,													/* tp_setattr */
+	0,													/* tp_async */
+	0,													/* tp_repr */
+	0,													/* tp_as_number */
+	0,													/* tp_as_sequence */
+	0,													/* tp_as_mapping */
+	0,													/* tp_hash */
+	0,													/* tp_call */
+	0,													/* tp_str */
+	0,													/* tp_getattro */
+	0,													/* tp_setattro */
+	0,													/* tp_as_buffer */
+	Py_TPFLAGS_DEFAULT,									/* tp_flags */
+	"dGDD class",										/* tp_doc */
+	0,													/* tp_traverse */
+	0,													/* tp_clear */
+	0,													/* tp_richcompare */
+	0,													/* tp_weaklistoffset */
+	0,													/* tp_iter */
+	0,													/* tp_iternext */
+	dGDD_wrapper_type_methods,							/* tp_methods */
+	0,													/* tp_members */
+	0,													/* tp_getset */
+	&spectrum_wrapper_type,								/* tp_base */
+	0,													/* tp_dict */
+	0,													/* tp_descr_get */
+	0,													/* tp_descr_set */
+	0,													/* tp_dictoffset */
+	0,													/* tp_init */
+	0,													/* tp_alloc */
+	0,													/* tp_new */
 };
 
 

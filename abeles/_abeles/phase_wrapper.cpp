@@ -154,45 +154,44 @@ static PyMethodDef phase_wrapper_type_methods[] =
 
 
 PyTypeObject phase_wrapper_type = {
-	PyObject_HEAD_INIT(NULL)
-	0,																									/* ob_size */
-	"abeles.phase",																			/* tp_name */
-	sizeof(spectrum_wrapper_object),										/* tp_basicsize */
-	0,																									/* tp_itemsize */
-	0,																									/* tp_dealloc */
-	0,																									/* tp_print */
-	0,																									/* tp_getattr */
-	0,																									/* tp_setattr */
-	0,																									/* tp_compare */
-	0,																									/* tp_repr */
-	0,																									/* tp_as_number */
-	0,																									/* tp_as_sequence */
-	0,																									/* tp_as_mapping */
-	0,																									/* tp_hash */
-	0,																									/* tp_call */
-	0,																									/* tp_str */
-	0,																									/* tp_getattro */
-	0,																									/* tp_setattro */
-	0,																									/* tp_as_buffer */
-	Py_TPFLAGS_DEFAULT,																	/* tp_flags */
-	"phase class",																			/* tp_doc */
-	0,																									/* tp_traverse */
-	0,																									/* tp_clear */
-	0,																									/* tp_richcompare */
-	0,																									/* tp_weaklistoffset */
-	0,																									/* tp_iter */
-	0,																									/* tp_iternext */
-	phase_wrapper_type_methods,													/* tp_methods */
-	0,																									/* tp_members */
-	0,																									/* tp_getset */
-	&spectrum_wrapper_type,															/* tp_base */
-	0,																									/* tp_dict */
-	0,																									/* tp_descr_get */
-	0,																									/* tp_descr_set */
-	0,																									/* tp_dictoffset */
-	0,																									/* tp_init */
-	0,																									/* tp_alloc */
-	0,																									/* tp_new */
+	PyVarObject_HEAD_INIT(NULL, 0)
+	"abeles.phase",								/* tp_name */
+	sizeof(spectrum_wrapper_object),			/* tp_basicsize */
+	0,											/* tp_itemsize */
+	0,											/* tp_dealloc */
+	0,											/* tp_vectorcall_offset */
+	0,											/* tp_getattr */
+	0,											/* tp_setattr */
+	0,											/* tp_async */
+	0,											/* tp_repr */
+	0,											/* tp_as_number */
+	0,											/* tp_as_sequence */
+	0,											/* tp_as_mapping */
+	0,											/* tp_hash */
+	0,											/* tp_call */
+	0,											/* tp_str */
+	0,											/* tp_getattro */
+	0,											/* tp_setattro */
+	0,											/* tp_as_buffer */
+	Py_TPFLAGS_DEFAULT,							/* tp_flags */
+	"phase class",								/* tp_doc */
+	0,											/* tp_traverse */
+	0,											/* tp_clear */
+	0,											/* tp_richcompare */
+	0,											/* tp_weaklistoffset */
+	0,											/* tp_iter */
+	0,											/* tp_iternext */
+	phase_wrapper_type_methods,					/* tp_methods */
+	0,											/* tp_members */
+	0,											/* tp_getset */
+	&spectrum_wrapper_type,						/* tp_base */
+	0,											/* tp_dict */
+	0,											/* tp_descr_get */
+	0,											/* tp_descr_set */
+	0,											/* tp_dictoffset */
+	0,											/* tp_init */
+	0,											/* tp_alloc */
+	0,											/* tp_new */
 };
 
 
@@ -238,45 +237,44 @@ static PyMethodDef GD_wrapper_type_methods[] =
 
 
 PyTypeObject GD_wrapper_type = {
-	PyObject_HEAD_INIT(NULL)
-	0,																									/* ob_size */
-	"abeles.GD",																				/* tp_name */
-	sizeof(spectrum_wrapper_object),										/* tp_basicsize */
-	0,																									/* tp_itemsize */
-	0,																									/* tp_dealloc */
-	0,																									/* tp_print */
-	0,																									/* tp_getattr */
-	0,																									/* tp_setattr */
-	0,																									/* tp_compare */
-	0,																									/* tp_repr */
-	0,																									/* tp_as_number */
-	0,																									/* tp_as_sequence */
-	0,																									/* tp_as_mapping */
-	0,																									/* tp_hash */
-	0,																									/* tp_call */
-	0,																									/* tp_str */
-	0,																									/* tp_getattro */
-	0,																									/* tp_setattro */
-	0,																									/* tp_as_buffer */
-	Py_TPFLAGS_DEFAULT,																	/* tp_flags */
-	"GD class",																					/* tp_doc */
-	0,																									/* tp_traverse */
-	0,																									/* tp_clear */
-	0,																									/* tp_richcompare */
-	0,																									/* tp_weaklistoffset */
-	0,																									/* tp_iter */
-	0,																									/* tp_iternext */
-	GD_wrapper_type_methods,														/* tp_methods */
-	0,																									/* tp_members */
-	0,																									/* tp_getset */
-	&spectrum_wrapper_type,															/* tp_base */
-	0,																									/* tp_dict */
-	0,																									/* tp_descr_get */
-	0,																									/* tp_descr_set */
-	0,																									/* tp_dictoffset */
-	0,																									/* tp_init */
-	0,																									/* tp_alloc */
-	0,																									/* tp_new */
+	PyVarObject_HEAD_INIT(NULL, 0)
+	"abeles.GD",									/* tp_name */
+	sizeof(spectrum_wrapper_object),				/* tp_basicsize */
+	0,												/* tp_itemsize */
+	0,												/* tp_dealloc */
+	0,												/* tp_vectorcall_offset */
+	0,												/* tp_getattr */
+	0,												/* tp_setattr */
+	0,												/* tp_async */
+	0,												/* tp_repr */
+	0,												/* tp_as_number */
+	0,												/* tp_as_sequence */
+	0,												/* tp_as_mapping */
+	0,												/* tp_hash */
+	0,												/* tp_call */
+	0,												/* tp_str */
+	0,												/* tp_getattro */
+	0,												/* tp_setattro */
+	0,												/* tp_as_buffer */
+	Py_TPFLAGS_DEFAULT,								/* tp_flags */
+	"GD class",										/* tp_doc */
+	0,												/* tp_traverse */
+	0,												/* tp_clear */
+	0,												/* tp_richcompare */
+	0,												/* tp_weaklistoffset */
+	0,												/* tp_iter */
+	0,												/* tp_iternext */
+	GD_wrapper_type_methods,						/* tp_methods */
+	0,												/* tp_members */
+	0,												/* tp_getset */
+	&spectrum_wrapper_type,							/* tp_base */
+	0,												/* tp_dict */
+	0,												/* tp_descr_get */
+	0,												/* tp_descr_set */
+	0,												/* tp_dictoffset */
+	0,												/* tp_init */
+	0,												/* tp_alloc */
+	0,												/* tp_new */
 };
 
 
@@ -322,45 +320,44 @@ static PyMethodDef GDD_wrapper_type_methods[] =
 
 
 PyTypeObject GDD_wrapper_type = {
-	PyObject_HEAD_INIT(NULL)
-	0,																									/* ob_size */
-	"abeles.GDD",																				/* tp_name */
-	sizeof(spectrum_wrapper_object),										/* tp_basicsize */
-	0,																									/* tp_itemsize */
-	0,																									/* tp_dealloc */
-	0,																									/* tp_print */
-	0,																									/* tp_getattr */
-	0,																									/* tp_setattr */
-	0,																									/* tp_compare */
-	0,																									/* tp_repr */
-	0,																									/* tp_as_number */
-	0,																									/* tp_as_sequence */
-	0,																									/* tp_as_mapping */
-	0,																									/* tp_hash */
-	0,																									/* tp_call */
-	0,																									/* tp_str */
-	0,																									/* tp_getattro */
-	0,																									/* tp_setattro */
-	0,																									/* tp_as_buffer */
-	Py_TPFLAGS_DEFAULT,																	/* tp_flags */
-	"GDD class",																				/* tp_doc */
-	0,																									/* tp_traverse */
-	0,																									/* tp_clear */
-	0,																									/* tp_richcompare */
-	0,																									/* tp_weaklistoffset */
-	0,																									/* tp_iter */
-	0,																									/* tp_iternext */
-	GDD_wrapper_type_methods,														/* tp_methods */
-	0,																									/* tp_members */
-	0,																									/* tp_getset */
-	&spectrum_wrapper_type,															/* tp_base */
-	0,																									/* tp_dict */
-	0,																									/* tp_descr_get */
-	0,																									/* tp_descr_set */
-	0,																									/* tp_dictoffset */
-	0,																									/* tp_init */
-	0,																									/* tp_alloc */
-	0,																									/* tp_new */
+	PyVarObject_HEAD_INIT(NULL, 0)
+	"abeles.GDD",									/* tp_name */
+	sizeof(spectrum_wrapper_object),				/* tp_basicsize */
+	0,												/* tp_itemsize */
+	0,												/* tp_dealloc */
+	0,												/* tp_vectorcall_offset */
+	0,												/* tp_getattr */
+	0,												/* tp_setattr */
+	0,												/* tp_async */
+	0,												/* tp_repr */
+	0,												/* tp_as_number */
+	0,												/* tp_as_sequence */
+	0,												/* tp_as_mapping */
+	0,												/* tp_hash */
+	0,												/* tp_call */
+	0,												/* tp_str */
+	0,												/* tp_getattro */
+	0,												/* tp_setattro */
+	0,												/* tp_as_buffer */
+	Py_TPFLAGS_DEFAULT,								/* tp_flags */
+	"GDD class",									/* tp_doc */
+	0,												/* tp_traverse */
+	0,												/* tp_clear */
+	0,												/* tp_richcompare */
+	0,												/* tp_weaklistoffset */
+	0,												/* tp_iter */
+	0,												/* tp_iternext */
+	GDD_wrapper_type_methods,						/* tp_methods */
+	0,												/* tp_members */
+	0,												/* tp_getset */
+	&spectrum_wrapper_type,							/* tp_base */
+	0,												/* tp_dict */
+	0,												/* tp_descr_get */
+	0,												/* tp_descr_set */
+	0,												/* tp_dictoffset */
+	0,												/* tp_init */
+	0,												/* tp_alloc */
+	0,												/* tp_new */
 };
 
 

@@ -131,7 +131,7 @@ static void dealloc_N_wrapper(N_wrapper_object *self)
 
 		Py_XDECREF(self->wvls);
 
-		self->ob_type->tp_free((PyObject*)self);
+		self->ob_base.ob_type->tp_free((PyObject*)self);
 	}
 }
 
@@ -231,7 +231,7 @@ static PyObject * N_wrapper_subscript(N_wrapper_object* self, PyObject* item)
 	}
 	else if (PySlice_Check(item))
 	{
-		if (PySlice_GetIndicesEx((PySliceObject*)item, self->wvls->wvls->length, &start, &stop, &step, &slicelength) < 0)
+		if (PySlice_GetIndicesEx((PyObject*)item, self->wvls->wvls->length, &start, &stop, &step, &slicelength) < 0)
 			return NULL;
 
 		if (slicelength <= 0)
@@ -289,47 +289,45 @@ static PyMappingMethods N_wrapper_as_mapping = {
 
 
 PyTypeObject N_wrapper_type = {
-	PyObject_HEAD_INIT(NULL)
-	0,																									/* ob_size */
-	"abeles.N",																					/* tp_name */
-	sizeof(N_wrapper_object),														/* tp_basicsize */
-	0,																									/* tp_itemsize */
-	(destructor)dealloc_N_wrapper,											/* tp_dealloc */
-	0,																									/* tp_print */
-	0,																									/* tp_getattr */
-	0,																									/* tp_setattr */
-	0,																									/* tp_compare */
-	0,																									/* tp_repr */
-	0,																									/* tp_as_number */
-	&N_wrapper_as_sequence,															/* tp_as_sequence */
-	&N_wrapper_as_mapping,															/* tp_as_mapping */
-	0,																									/* tp_hash */
-	0,																									/* tp_call */
-	0,																									/* tp_str */
-	0,																									/* tp_getattro */
-	0,																									/* tp_setattro */
-	0,																									/* tp_as_buffer */
-	Py_TPFLAGS_DEFAULT,																	/* tp_flags */
-	"n class",																					/* tp_doc */
-	0,																									/* tp_traverse */
-	0,																									/* tp_clear */
-	0,																									/* tp_richcompare */
-	0,																									/* tp_weaklistoffset */
-	0,																									/* tp_iter */
-	0,																									/* tp_iternext */
-	N_wrapper_type_methods,															/* tp_methods */
-	0,																									/* tp_members */
-	0,																									/* tp_getset */
-	0,																									/* tp_base */
-	0,																									/* tp_dict */
-	0,																									/* tp_descr_get */
-	0,																									/* tp_descr_set */
-	0,																									/* tp_dictoffset */
-	(initproc)init_N_wrapper,														/* tp_init */
-	0,																									/* tp_alloc */
-	new_N_wrapper,																			/* tp_new */
+	PyVarObject_HEAD_INIT(NULL, 0)
+	"abeles.N",							/* tp_name */
+	sizeof(N_wrapper_object),			/* tp_basicsize */
+	0,									/* tp_itemsize */
+	(destructor)dealloc_N_wrapper,		/* tp_dealloc */
+	0,									/* tp_vectorcall_offset*/ //working?
+	0,									/* tp_getattr */
+	0,									/* tp_setattr */
+	0,									/* tp_async */
+	0,									/* tp_repr */
+	0,									/* tp_as_number */
+	&N_wrapper_as_sequence,				/* tp_as_sequence */
+	&N_wrapper_as_mapping,				/* tp_as_mapping */
+	0,									/* tp_hash */
+	0,									/* tp_call */
+	0,									/* tp_str */
+	0,									/* tp_getattro */
+	0,									/* tp_setattro */
+	0,									/* tp_as_buffer */
+	Py_TPFLAGS_DEFAULT,					/* tp_flags */
+	"n class",							/* tp_doc */
+	0,									/* tp_traverse */
+	0,									/* tp_clear */
+	0,									/* tp_richcompare */
+	0,									/* tp_weaklistoffset */
+	0,									/* tp_iter */
+	0,									/* tp_iternext */
+	N_wrapper_type_methods,				/* tp_methods */
+	0,									/* tp_members */
+	0,									/* tp_getset */
+	0,									/* tp_base */
+	0,									/* tp_dict */
+	0,									/* tp_descr_get */
+	0,									/* tp_descr_set */
+	0,									/* tp_dictoffset */
+	(initproc)init_N_wrapper,			/* tp_init */
+	0,									/* tp_alloc */
+	new_N_wrapper,						/* tp_new */
 };
-
 
 #ifdef __cplusplus
 }
